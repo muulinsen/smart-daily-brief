@@ -1,0 +1,11 @@
+[Unit]
+Description=Process one Telegram image every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+AccuracySec=5s
+Unit=brief-telegram-vision.service
+
+[Install]
+WantedBy=timers.target

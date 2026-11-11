@@ -1,0 +1,14 @@
+[Unit]
+Description=每 20 分钟触发全文抓取（与采集器错开 10 分钟）
+
+[Timer]
+# 与 brief-harvest.timer(*:0/20) 错开，避免两个 Node 进程同时吃内存
+# （896 MB 机器上这很重要），也避免同时压同一批来源主机。
+OnCalendar=*:10/20
+RandomizedDelaySec=120
+Persistent=false
+AccuracySec=30s
+Unit=brief-fulltext.service
+
+[Install]
+WantedBy=timers.target

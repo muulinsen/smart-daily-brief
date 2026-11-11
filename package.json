@@ -1,0 +1,65 @@
+{
+  "name": "briefing-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test:telegram": "node tests/telegram.test.ts",
+    "telegram:summarize": "node apps/worker/src/telegram-summarize.ts",
+    "telegram:maintain": "node apps/worker/src/telegram-maintain.ts",
+    "telegram:vision": "node apps/worker/src/telegram-vision.ts",
+    "telegram:vision-status": "node scripts/telegram-vision-status.mjs",
+    "telegram:migrate-schema": "node scripts/migrate-telegram-schema.mjs",
+    "telegram:init-local": "node scripts/init-local-telegram.mjs",
+    "telegram:collector": "node apps/worker/src/telegram-supervisor.ts",
+    "subscriptions:sync": "node scripts/sync-public-subscriptions.mjs",
+    "test": "node tests/telegram.test.ts && node tests/semantic.test.ts && node tests/digest-gate.test.ts && node tests/embedding-settings.test.ts && node tests/admin.test.ts && node tests/admin-routes.test.ts && node tests/telegram-digest.test.ts && node tests/telegram-supervisor.test.ts && node tests/telegram-daily.test.ts && node tests/telegram-links.test.ts && node tests/backup.test.ts && node tests/backup-settings.test.ts && node tests/source-eligibility.test.ts && node tests/retry.test.ts && node tests/subscriptions.test.ts && node tests/openai-release-notes.test.ts && node tests/v2ex-json.test.ts && node tests/window.test.ts && node tests/filters.test.ts && node tests/prescreen.test.ts && node tests/risk.test.ts && node tests/ssrf.test.ts && node tests/safe-fetch.test.ts && node tests/curl-integration.test.ts && node tests/host-circuit.test.ts && node tests/composite.test.ts && node tests/late-discovery.test.ts && node tests/cluster.test.ts && node tests/semantic-dedup.test.ts && node tests/fact-trace.test.ts && node tests/highlights.test.ts && node tests/provider.test.ts && node tests/model-providers.test.ts && node tests/model-integration.test.ts && node tests/error-hygiene.test.ts && node tests/triage.test.ts && node tests/review.test.ts && node tests/compose.test.ts && node tests/email.test.ts && node tests/digest.test.ts && node tests/tutorials.test.ts && node tests/deals.test.ts && node tests/mime.test.ts && node tests/delivery.test.ts && node tests/golden.test.ts && node tests/auth.test.ts && node tests/actions.test.ts && node tests/secrets.test.ts && node tests/systemd.test.ts && node scripts/test-fingerprint.mjs && node scripts/validate-rules.mjs",
+    "migrate": "node apps/worker/src/migrate.ts",
+    "sync": "node apps/worker/src/sync-sources.ts",
+    "harvest": "node apps/worker/src/harvest.ts",
+    "typecheck": "tsc --noEmit",
+    "status": "node scripts/status.mjs",
+    "start": "node apps/web/src/server.ts",
+    "candidates": "node apps/worker/src/candidates.ts",
+    "triage": "node apps/worker/src/triage.ts",
+    "golden:seed": "node scripts/golden-seed.mjs",
+    "golden:label": "node scripts/golden-label.mjs",
+    "golden:eval": "node scripts/golden-eval.mjs",
+    "golden:filter-audit": "node scripts/golden-filter-audit.mjs",
+    "web": "node apps/web/src/server.ts",
+    "admin:setup": "node scripts/admin-setup.mjs",
+    "brief": "node apps/worker/src/brief.ts",
+    "mail:test": "node scripts/test-mail.mjs",
+    "shadow:report": "node scripts/shadow-report.mjs",
+    "reapply": "node apps/worker/src/reapply.ts",
+    "review": "node apps/worker/src/review.ts",
+    "run": "node apps/worker/src/run.ts",
+    "golden:mark": "node scripts/golden-mark.mjs",
+    "preview": "node apps/worker/src/preview.ts",
+    "telegram:daily-preview": "node apps/worker/src/telegram-daily-preview.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fastify/cookie": "^11.1.2",
+    "@fastify/formbody": "^9.0.0",
+    "better-sqlite3": "^13.0.3",
+    "fast-xml-parser": "^5.11.0",
+    "fastify": "^5.12.1",
+    "nodemailer": "10.0.10",
+    "yaml": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.120.0"
+  }
+}

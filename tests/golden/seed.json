@@ -1,0 +1,818 @@
+[
+  {
+    "id": "linuxdo:2791084",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791084",
+    "title": "[古德公益站] 对用户进行的一次大清洗",
+    "body": "古德公益站为增强用户质量，减少“僵尸账号”，故进行一次大规模用户清洗，本次清洗用户为仅注册，未使用过古德公益站且从未进行ldc交易记录的账户，共清洗2186个账户，本次清洗占整站用户82% 如果您的账号被误清洗，请进行自助解封，感谢各位的支持与理解 自助解封入口： 自助解封入口 91 个帖子 - 72 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Fri, 21 Aug 2026 18:18:15 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791113",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791113",
+    "title": "哪来的大爷？",
+    "body": "鉴定为电子宠物，这里没有任何人欠你，跟个大爷似的，该你的？ 群里都是3级佬友自愿花自己的时间去审核，别人不用休息的吗 抛开问题不谈，难道在座各位就没有错吗（） 26 个帖子 - 21 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Fri, 21 Aug 2026 18:44:07 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791531",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791531",
+    "title": "【PM-TV】试图以一己之力让大家电影自由",
+    "body": "地址是 PMTV 先内测一下，无注册 账号名：先试试喵 密码：先试试喵 我是胖猫: 忘了可以改密码了，正在紧急修复喵 27 个帖子 - 24 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 02:08:23 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791349",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791349",
+    "title": "在你站求助是一件相当困难的事情",
+    "body": "譬如你想求助炸酱面怎么做，通常不会很快获得回答。 相反，你要先回答一大堆诸如“为什么不煮稀饭”之类的问题。 ↑只是比喻，想吃炸酱面来厦门找我面基 61 个帖子 - 44 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 01:03:46 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791761",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791761",
+    "title": "【小鸡毛】8月22日更新 deepseek上新渠道 Kiro已上free号池提供claude-sonnet-4.5模型",
+    "body": "最近我发现小鸡毛的deepseeek用量陡增啊 dv4f（0731）和dv4 pro（0831）上涨了684%和1399%的用量 其实是可能最近才上deepseek渠道吧哈哈 非常感谢佬友 @Kikyo 前段时间提供的deepseek渠道 现在只能靠自己来弄一点渠道了哈哈 目前发现某个平台注册就送68元额度，我去薅了一点 opencode go我也买了一个加上 @4242 佬的帮助也收了几个 话说2000LDC收的一个opencodego账户，没几下就被人蹬完了5H限制 官方api更是烧不起，昨天开放了一下子，一个小时就蹬了70多块 所以问一下佬友们，我要不要把deepseek渠道也跟GPT一样加入共享额度限制里面 只有订阅VIP和LDC充值额度才能调用呢 现在的情况就是大部分时间deepseek都是不可用的状态 opencode的额度恢复以后，几分钟就被蹬没了 投票：是否将deepseek渠道放入全站共享额度窗口限制 加入全站共享额度限制，优先保证可用性 不加入，各凭本事，先蹬先爽，后蹬看报错 点击以查看投票。 另外昨天弄了个kiro注册机，目前已上kiro free号池 如果实在没模型蹬，可以用claude-sonnet-4.5试试 今天科研一下gork注册机和防降智，希望能在一周内自建Gork号池 目前哲佬那边的Gork 4.5应该还是能用的 最后就是一个不幸的消息 本来有一个team今天临期的，然后我登上去准备买席位的时候，发现被封空间了 本来计划的今天临期team车，拉闸咯~ team轮换系统还在修复，昨天开闸了一下发现目前的轮换速度跟不上佬友们蹬的速度 昨天RPM大概是200~300/分钟 1个子号只能提供600次GPT 5.6 sol的请求 也就是每个母号大概2分钟就得轮换1次子号 而我的轮换系统每次轮换要花费5~10分钟 等完全优化好以后，会继续开闸，现在太多bug了，总是在莫名其妙的地方卡住 随便一个需求就修了1小时，每天不是在修bug就是在修bug的路上.. 好了，今天的更新内容汇报完毕，使用过程中有什么问题，可以在问题反馈主贴进行反馈，或者私信我 17 个帖子 - 14 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 03:10:14 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791496",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791496",
+    "title": "🤔新闻好啊，新闻得多看啊",
+    "body": "起因是这样的，我看狐狸佬 @aozix 开源了个手机聚合新闻软件，但是加了个这个功能： 这个意思是我可以添加别的视频站点？ 于是，好玩的就来了。 不要随便点开 剧透 新闻看累了看看别的也很合理吧 14 个帖子 - 14 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 01:55:16 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792348",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792348",
+    "title": "【PM公益站】又发现好多好东西",
+    "body": "本帖使用社区公益推广，符合推广要求 （点击了解更多详细信息） 从 【PM公益站】free组上ds-f和ds-p喵 继续讨论： 依旧是神秘中转站提供的无限刀 主要是不流口水的grok模型 还有一个牛来 14 个帖子 - 14 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 06:12:04 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791562",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791562",
+    "title": "电脑壁纸分享贴(已加NSFW)",
+    "body": "佬友们，你们有没有什么好看、一直使用、经典的电脑壁纸 已加NSFW标签，佬友们放心分享 56 个帖子 - 52 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 02:14:42 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791363",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791363",
+    "title": "Codex回来了！智力恢复！",
+    "body": "5.6 Sol Ultra， 一次过。 今天还送了重置卡，大师兄回来了！ 39 个帖子 - 24 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 01:10:54 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791520",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791520",
+    "title": "（fake,AI 生图）GPT6 来了？！",
+    "body": "微信群友从 QQ 群传出来的，如果是真的，我将暂时原谅 o​ 的大批量网页降智行为 二编： 理性看待，从微信群搬运的，肯定有概率是 ai 生图，不过结合最近的大规模降智来看，不排除是真的可能，毕竟每次发布新模型前都会大规模降智（ 三编： 图是假的，感谢佬友的提醒，前沿的沿字太别扭了，太可惜了，白高兴一场 52 个帖子 - 41 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 02:03:07 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792105",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792105",
+    "title": "究竟靠AI如何赚钱？我来个分享吧",
+    "body": "我先说下我目前的情况，靠AI把公司的跨境电商自建站几乎8成AI化了，效率提升很多，订单量提升了，但是利润么，吼吼，没太大提升，太卷了，中转站啥的就不说了，风控厉害，赚不到啥钱。 这个我就不提了，我分享下我opc也就是一个人靠AI，以及我发小们他们靠AI是如何赚到钱的。 1.我用gpt+pi完成了一个Amazon联盟站的搭建，自动SEO，已经2个多月了，第一个月基本没正常流量，很多垃圾刷的流量，用ai去seo效果特别不好，但不是完全没效果（可能我的方法有问题），到今天此时此刻71了，共出5单，佣金一共21刀（第一单来自66天，所以如果持续下去还是可以做） 2.我给3家电商公司做了工作流（分析数据选品，改图，上品等等），赚了一些 3.我用ai做了一个纯纯的seo垃圾站群后台，跑google的seo，效果也不算好，一共量产出4个独立域名的垃圾站，4个站加起来垃圾ip和真实ip一共每天2万+ 还没申请广告联盟 还没盈利，因为垃圾流量占比7成-8成了 4.我用pi运营的公众号，抖音，小红书，目前无盈利，不稳定，小红书不起量，没人访问 5.我用pi+手机农场运营挂tiktok号（20部手机，纯挂和偶尔发内容），45天一轮回，号可以卖200-1000元不等，这个还能盈利 6.我发小用gpt做了一套出海应用，具体内容不方便透露，他的订阅费是9.9刀/月 19.9刀/季度 这种，目前平均每天能有3-5个订阅，够点外卖 7.我另一个发小用gpt开发了一套类似于iptv的软件，可以看全球电视节目，卖授权，通过投流，目前每天能卖10来套授权，投流费用占比40%，等于每天卖100刀，能赚60刀左右，其他服务器什么费用不详 8.我一网友用ai做 某erp倒货一件代发到拼多多，看着很忙，不清楚利润多少，订单非常大，每天都是几千单上下，但是都是2 3 5 8块的产品 9.未完待续。 17 个帖子 - 14 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 04:47:41 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792896",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792896",
+    "title": "这是在用小D在玩什么呢？好难猜啊！",
+    "body": "我发现一个不太好的事情 本来是想着给佬友们找deepseek渠道 然后站内搜到基元律动这个站注册送68元 我就加入了小鸡毛的渠道 但是！问题来了！ 基元律动这个用量明细，会展示用户提示词！ 虽然只展示开头一部分，但是总感觉有点窥探到了佬友隐私的感觉，不太好 使用deepseek渠道的佬友 切记不要明文发送各种隐私信息，保护好自己的隐私 然后就是不小心看到这个！ 这是拿小D在玩什么啊？ 是时候要学42佬加入更严格的提示词审查了！ 大家用公益不要来干坏事啊 别搞瑟瑟和涉政的东西哦 15 个帖子 - 14 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 08:44:24 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792585",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792585",
+    "title": "DeepSeek 多模态给大家实测了一把，确实有东西的",
+    "body": "昨天 DeepSeek 发布了 DeepSeek-V4-Flash-Vision-Exp，这标志着 DeepSeek 正式杀进了多模态领域。 所以嘛梁子，多模态还是很重要的。 在 DeepSeek Harness 的 webui 中，已经有 DeepSeek-V4-Flash-Vision-Exp 的模型了。 在 DeepSeek-Harness Release 中，可以看到 v0.1.1-rc.1 更新了增加 DeepSeek-V4-Flash-Vision-Exp 模型的支持。 那我们这篇文章就给大家实测一下，这个 DeepSeek-V4-Flash-Vision-Exp（目前只是试验品阶段）的模型能力到底如何，好不好用。 首先先让它分析一张照片把。 首先来说，分析的速度非常快，基本上就是眨眼之间就分析完了，并且从五个角度给出了这张图片的解读。 嗯，这个挑战对他来说可能不难，因为绝大多数多模态的模型都能够把一张图片认得又快又好。 在这个基础上我们增加了一些挑战。 我让他分析一下这个是做什么的，这张图片分析起来就有一些难度了。 （这里需要吐槽一下，dsh webui 中的 command + c 、v 直接把图片复制过去的方式用起来很难受，它甚至无法正确工作） 只有把图片拖过去，或者使用 @ 的方式能够正常工作。 DeepSeek-V4-Flash-Vision-Exp 没有识别出来这张图片真正的精髓。 这张图片的精髓在于漏出来的一点充电器头，看起来 DeepSeek-V4-Flash-Vision-Exp 看到了这个充电器头，但它没有认出是什么，更没有当回事。 而这个图片测试，只有 gemini 识别的是最靠谱的， 下面我要测试视觉模型的 多模态推理能力 ：OCR（文字识别）、空间理解、数量统计、逻辑推理、时间推断、异常检测。 而不仅仅是图片理解的能力。 （看了一圈很多自媒体发的测评文章，简简单单识别个图，测一下是啥就完事儿了，测了个寂寞？本来模型具有 10 成的功力，测了不到 0.1 成。这不叫测试，这叫体验。。。） 以下测试基于三种难度，简单，中等和困难。 挑战一：侦探桌上的线索拼图 这张图表面看是一张桌面照片，但实际上隐藏了一条逻辑链。 根据图片内容，回答下面三个问题： 图片中有哪些人物？ 主人今天有哪些安排？ 根据所有线索，推断主人下午是否可能赶不上火车，并说明理由。 测试完成，结果如下 通过这次测试，可以看出 DeepSeek 已经具备多图片元素关联、时间线建立和主动发现矛盾，这已经超过了一般的视觉模型。 主要有两个问题， 第一个是火车票 火车票当天确实是 14:15 从北京向南出发的，然后超市小票显示 17:56 他还在超市购物。 这里有问题，只靠小票无法证明人在超市，有可能这个小票是家人代买的，DeepSeek 把物品证据升级成为了人物位置证据，这是过度推理。 第二个是手机时间推理问题 ，手机时间 18:42，并且晚上 19:15 还有和阿磊吃饭安排，说明他当天仍在本地。只考手机时间不能证明人在本地。这说明它的 不确定性判断和抗幻觉能力还有提升空间 。 挑战二：超市货架挑战 这次测试主要测密集目标识别 + OCR + 数学计算，这是视觉模型非常难的一类。 根据图片内容，回答下面三个问题： 哪个商品缺货？ 货架上最贵商品是什么？ 买这些商品需要多少钱？ 测试完成，结果如下： 第二个测试结果整体比第一个更好， 识别、统计、计算基本准确，没有明显幻觉问题 。 DeepSeek 在 OCR、商品统计和数学计算方面表现优秀，但对复杂场景推理的深度还不足；这张图属于结构化信息，难度较低，暂时没有暴露明显缺陷。 挑战三：车站信息 这次主要测试表格理解 + 空间导航 + 时间规划。 根据图片内容，回答下面三个问题 哪辆车最适合乘坐？ 从售票处到 B1 检票口怎么走？ 一个带老人和行李的人，现在在候车大厅，要赶 09:05 的车，应该如何规划路线？ 这个 prompt 中的第三个问题属于高难问题了。 测试完成，结果如下： 第三题测试结果整体表现较好，但出现了比第二题更明显的空间推理过度发挥问题。 DeepSeek 能正确读取车次、时间、检票口，但对地图路径进行了 过度脑补 ，把图片中没有明确的信息（如楼梯、电梯、方向距离）扩展成了真实导航建议。 例如上面提到的 优先走无障碍电梯/直梯，避免楼梯 然而图片里没有提供电梯位置、楼梯位置、无障碍设施，这是典型的补全现实场景。 还有从售票处出来后进入候车大厅，向大厅中央走，再沿大厅往南方向走到 B1-B10 区域，基本上符合地图布局，但“中央走”“往南方向”等属于推测，并非图片直接提供。 严谨一点的说法是： 根据地图显示，B 检票区域位于候车大厅下方区域，需前往 B1-B10 区域。 挑战四：停车场 这个测试主要侧重于 空间关系的理解 能力，这也同属于视觉模型最难的一类。 根据图片内容，回答下面四个问题 A3 是否有车？ C1 EV 车位的白色车是否违规停车？ 车辆 B5 应该如何驶出停车场？ 找一个，靠近出口，非新能源区域，空闲的停车位置 测试完成，结果如下 值得一提的是，所有的测试都基于 DSH 极简模式，前三个测试基本上都可以做到几个 steps 直接分析完毕，而这个测试，DSH 跑了十几分钟。。。。。。做了 48 步。 第四个测试结果表现很好，甚至比第三题更稳定，说明 DeepSeek 在 规则明确的空间理解任务 上能力较强。 不过，仍然存在脑补的现象。 目前四个题目测试下来，给大家总结一下测试结果。 目前暴露出来的核心问题很一致 识别能力很强，结构化推理也很强，但涉及现实世界常识补全时容易想太多。 这不是 DeepSeek 的问题，这是大多数视觉大模型的通病。 需要注意的是，这次测试都是基于 DeepSeek-V4-Flash-Vision-Exp 的多模态推理能力。 DeepSeek 官方说的多样化的 Agent 使用场景，这块我还没测，如果大家比较喜欢看这类文章的话，后续我可以测一下。 跟大家说一下这次测试的花销，总共花了 两块五 ，个人感觉还是非常香。 我凌晨六点爬起来就开始写这篇文章了，一直写到现在。昨天文章有个读者问我累不累，能不累嘛 。。。 28 个帖子 - 13 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 07:18:41 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792385",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792385",
+    "title": "在这个独属于ai的时代，我终究是被裁员了",
+    "body": "前言 依稀记得从2025年12月开始，中文互联网开始出现铺天盖地的大力鼓吹ai的话题，这波话题也成功破圈了，我们公司也不例外，高层看到了这些信息后，就开始让我们多用ai来提效。 一转眼到了今年（2026年）3月份，领导开始让我们借助ai的力量转全栈了，现有的前端学后端，后端学前端。一人干一个项目，进而提升效率为公司带来更多的收益。 被裁 再后来，就按照这个节奏去开发了，以前一起从事过的同事以及社区认识的程序员，他们也都全栈了，干不了的就被裁员了，ai提升效率的同时，工作量提升了，每天也更累了。唯独收入保持不变。 时间来到昨天（8月20日），领导突然喊我去小会议室，跟我说：我们部门盈利变少了，公司要砍预算，决定裁掉你了，明天（8月21日）人力会找你谈具体事宜，签完字就可以走了。 思考 在ai的大潮流下，纯前端/后端的生存空间越来越少了，招聘市场更多的是招聘全栈，薪酬也大范围缩水了。或许，独属于程序员的时代真要结束了。 当下这个ai盛行的时代，我们被 拍打 下来的这些人，应该去做点什么好呢？ 这个问题，我始终没有答案 … 写在最后 至此，文章就分享完毕了。 我是 神奇的程序员 ，一位前端开发工程师。 如果你对我感兴趣，请移步我的 个人网站 ，进一步了解。 22 个帖子 - 19 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 06:23:26 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792870",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792870",
+    "title": "Zcode glm5.3 给我整个文件夹的全部项目全部删库跑路了？ ！！！！！！！！！！！！1",
+    "body": "我一边在使用claude opus5 来修bug，一边在使用glm5.3 排查bug 突然claude告诉我文件都不存在了，我开始排查发现文件夹的项目全部都删除了 文件夹里面就剩下两个项目的空文件夹 其他项目的文件都删除了 我一个文件夹里面有多个项目 API项目源代码 社区网站的源代码 还有切换账号的项目源代码 损失非常非常多，还有几个研究项目的文件夹 非常的生气，没办法，我也要对自己负责，我开的完全访问模式。 32 个帖子 - 29 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 08:39:33 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792047",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792047",
+    "title": "“Gemini 3.7 是我们迄今为止增长最快的模型发布，看到大家的反响真是太棒了！！！”，谷歌也迎来自己的 gpt5.5 时刻",
+    "body": "看起来又有机会“重回第一梯队”了？ 73 个帖子 - 70 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 04:32:50 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792316",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792316",
+    "title": "【PM公益站】free组上ds-f和ds-p喵",
+    "body": "本帖使用社区公益推广，符合推广要求 （点击了解更多详细信息） 神秘中转站提供的免费渠道喵，不知道有没有掺水 就是并发限制5 11 个帖子 - 10 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 05:58:46 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792515",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792515",
+    "title": "MCSP 公益面板服",
+    "body": "本面板服基于 MCSP 项目 [!todo] 注册登录就送 2H2G 配置 [!todo] 每人只能领一个实例配置，多次用户将封禁处理 [!tip] 目前服务器节点数：2个 [!warning] 服务器无公网IP，请配合面板内置的内网穿透功能使用（建议使用免配置的Bore） panel.mcsp.workers.dev 选择服务器 - Multiplayer 本帖使用社区公益推广，符合推广要求。我申明并遵循社区要求的以下内容： 我的项目是免费使用的，无收费（变相收费、赞助）部分： 是 我的帖子已经打上 公益推广 标签： 是 我的项目属于个人项目，与公司或商业机构无关： 是 我的项目不存在QQ、TG等群组引流： 是 我的项目不存在非运营必要的网站引流： 是 我的项目不存在为他人推广、AFF： 是 我的项目无关联的商业项目： 是 我的站点存在登录，并已接入 LINUX DO Connect： 是 我帖子内的项目介绍，AI生成、润色内容部分已截图发出： 是 以上选择我承诺是永久有效的，接受社区和佬友监督： 是 以下为项目介绍正文内容，AI生成、润色内容已使用截图方式发出 13 个帖子 - 10 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 06:57:18 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792871",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792871",
+    "title": "cursor 填写表单得pro会员 骚操作",
+    "body": "起因看到 https://linux.do/t/topic/2792344 佬发的这个帖子 因为本人没有取消订阅的邮件 就想着能不能f12大法一下 搜索到一张取消订阅的邮件 做了个html f12去邮箱替换就可以截图了 表单地址： Grok Bot credits 如果佬有订阅截图或者其他ai的截图可以发一下 也是一样的道理f12就可以了 千万不要忘了改时间！！！！！！ 千万不要忘了改时间！！！！！！ 千万不要忘了改时间！！！！！！ 效果图 这是替换邮件后的效果 只替换了邮件正文部分 自行改为html （点击了解更多详细信息） 30 个帖子 - 22 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 08:39:38 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2791935",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2791935",
+    "title": "婚介报名费15000，时隔一年、我又来了。",
+    "body": "前情提要： 去婚介所，交了12800的诚意金 过了一年、老妈又给我找了一个中介，这次报名费15000，说这次中介比上次大、可以介绍本地人，目前还没交费、我下午去和中介对线。 从中介出来了：合同内容和去年那个一模一样。总费用是9万5千8委托费、1万5千8是意向金。彩礼不超过20万 39 个帖子 - 32 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 03:59:49 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793253",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793253",
+    "title": "前往参加神秘聚会",
+    "body": "10 个帖子 - 10 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 10:33:56 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793276",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793276",
+    "title": "cursor生成邮件的JS脚本，完全根据QQ邮箱来改的，百分百还原包括URL地址",
+    "body": "使用方法，打开QQ邮箱，登录，打开控制台，粘贴js脚本即可， 时间，订单号，收件箱，URL什么的都已经随机了，粘贴直接截图就行了 取消订阅.js.txt (510.3 KB) 添加订阅.js.txt (626.0 KB) 11 个帖子 - 8 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 10:40:50 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793254",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793254",
+    "title": "谁跟奥特曼打个电话让他来中国开业务",
+    "body": "最近中转站没得用了，谁有奥特曼电话，跟他说一声来国内直营吧 达里奥算了，怕不是落地就会被人套上塑料袋打一顿 30 个帖子 - 27 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 10:33:58 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792705",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792705",
+    "title": "第一次来香港，人在尖沙咀已经不知道该干嘛了，佬友们救一下😂",
+    "body": "今天一个人从深圳湾过关，本来想着既然来了就多玩几天。 结果现实是： 没带充电宝，到处研究哪里能免费充电 拖着一个行李箱到处走 香港住宿看了一圈，实在有点舍不得 已经从“找青旅”研究到了“网吧包夜” 一个人在尖沙咀坐着，突然感觉不知道该干嘛了 目前准备在香港待几天，但想尽量穷游。 想问问各位佬： 尖沙咀附近有没有免费充电的地方？ 香港有没有比较靠谱的几十港币通宵网吧？ 如果不住酒店，有没有相对舒服一点的过夜办法？ 一个人晚上有什么不怎么花钱又值得去的地方？ 有没有什么第一次来香港才比较值得玩的地方？ 实在不行今晚可能真去网吧包夜了。 人在香港在线等攻略 69 个帖子 - 60 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 07:53:30 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792592",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792592",
+    "title": "看来很多人其实不知道Linux上的一个小常识",
+    "body": "问题 请快速思考三个问题： 问题1 一个进程监听了 127.0.0.1:80/tcp 再启动一个进程，监听 0.0.0.0:80/tcp 能成功吗？ 问题2 一个进程监听了 0.0.0.0:80/tcp 再启动一个进程，监听 127.0.0.1:80/tcp 能成功吗？ 问题3 先将 [fd00::ffff:ff00] 绑定给 lo 启动一个进程监听 [::]:80/tcp 再启动一个进程监听 [fd00::ffff:ff00]:80/tcp 能成功吗？ 结论 事实上，以上三个实验都会收到 EADDRINUSE，即 errno 98: Address already in use 因此，对于这个问题而言： 如何在Linux上监听一个IP而不干扰其他业务 开发调优 我有个业务需要常驻后台，监听80/443端口。 这个业务仅供本机访问，但是进程本身需要可以访问外网。 鉴于 80/443 是相当常用的端口，直接 bind 0.0.0.0 [::] 显然不合适。 ULA 的 fd00::/8是一个很好的选择，符合 RFC4193 的定义，而且随机一个 /64 子网就基本上不会和其他服务发生冲突。 但是： 如果绑定到 lo，那本质上还会出现与 [::] … 在Linux发行版的默认配置下（即不开启地址或端口重用），只要监听的IP落在当前网络命名空间的网卡下，其他进程就无法避免 Wildcard Address 在同端口监听时发生冲突。 17 个帖子 - 13 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 07:19:56 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792711",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792711",
+    "title": "【第二弹】爽用牛来Ox，x-preview",
+    "body": "无注册，无推广 第一弹： 爽用最新模型x-preview 已结束，佬们爽登10亿 第二弹： LINUX DO CDK 这次RPM60 为什么api key只有24小时：随时拉闸，收一点cdk为了防止滥用 24 个帖子 - 20 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 07:55:35 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792328",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792328",
+    "title": "# 【佬友专属福利】ORCAI API 中转站 | 主营 Kiro (解锁 Claude / Opus 5.0) | 全系 GPT | kiro专属倍率0.3超高95缓存 | 注册留言送 5$ 直充| 进群再送2＄",
+    "body": "【佬友专属福利】ORCAI API 中转站 | 主营 Kiro (解锁 Claude / Opus 5.0) | 全系 GPT | kiro专属倍率0.3超高95缓存 | 注册留言送 5$ 直充| 进群再送2＄ 站点链接： https://orcai.cc/ 文档教程： https://www.orcai.cc/docs 已接入 LinuxDo 授权登录，注册和登录都比较方便，站内用户可直接登录领取专属福利。 站点简介 各位佬友好！ ORCAI 专注于提供高性价比、高稳定的 API 中转服务。 我们 主营 Kiro 方案 ，让大家无需再忍受封号与高昂订阅费，直接畅爽体验 Claude 全系列与 Opus 5.0 级巅峰性能！同时全面覆盖 ChatGPT 全系列 与 主流 AI 生图接口 。全站搭载 95%+ 缓存命中优化 ，支持无缝兼容现有 One-API / New-API 格式格式， 可无缝切换您现在使用的任何中转站 。无论是个人重度开发者、日常提效党，还是寻觅稳定上游的 API 下游服务商，ORCAI 都能为你提供极致省钱又安心的接口体验。 本站核心特色 主营 Kiro & 全能覆盖： 主打 Kiro 强力通道（轻松驾驭 Claude / Opus 5.0），兼顾 GPT 全系大模型与主流 AI 绘图接口，满足多样化开发与使用需求。 充值实惠 & 支付便捷： 1 人民币 = 1 美元额度 ，支持 国内支付宝 与虚拟货币（USDT 等）快捷支付。 零门槛无缝切换： 完全兼容通用 OpenAI / Claude 标准接口格式， 可以无缝切换您现在使用的任何中转站 ，API Key 即可快速接入。 极速高缓存： 全站 95% 高缓存命中率 ，大幅降低重复上下文请求延迟，响应更快，计费更省。 24 小时高稳定保证： 多节点负载均衡与账号池轮询机制，告别频繁断连与报错，站内 不定时发放免费福利额度 ！ 佬友专属福利活动 初次见面，给 L 站的佬友们送上一波实打实的直充福利： 看帖注册： 通过本站链接注册账号： https://orcai.cc/ 本帖留言： 在本帖下方回复你注册好的 用户名 。 联系领福利： 加入官方 QQ 群，找群主私聊报上用户名， 直接免费领取 5$ 直充额度 ！ 社群日常福利： 群内及站内 不定时发放福利兑换码 ，关注群公告不迷路！ 目标用户与下游合作 硬核 AI 开发者 / 提效党： 想低成本、不限额地使用 Claude / Opus 5.0、GPT-4o 及 AI 绘图。 下游代理 / 站长： 欢迎各类 API 下游服务商对接，95%+ 缓存高并发保障，长期合作提供稳定上游支撑。 加入官方社群 使用过程有任何疑问、需要对接帮助或领取福利，欢迎加入我们的交流群： 进群记得找管理或者群主领取福利鸡蛋~ oriai 中转站一群： 已满 oriai 中转站二群： 1051374777 oriai 中转站三群： 1056627543 174 个帖子 - 171 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 06:02:36 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2794317",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2794317",
+    "title": "为什么我不建议大家把公网端口都关掉",
+    "body": "从 再也不想在l站看到有人说自己服务器被攻击了 继续讨论： 恕我不能认同楼主的整套方案，理由如下： 隐藏信息差，学习成本不低 能够学习这套操作，并且在实战环境下长期、安全运维，你至少需要知道： 怎么注册使用cloudflare（大家应该都会） 怎么配置cloudflared的隧道规则 怎么保持进程活跃 服务器管理面板的VNC入口在哪里（bushi 我很难相信一个ssh端口不会改，nginx规则不会设置的人，能够掌握这套方法论。 夸大风险，误判攻击形态 对普通人而言，网络攻击的安全形式并没有那么严峻。 流量攻击 DDoS、CC攻击流量是很贵的，而这些攻击带有很强的报复、勒索等目的，没有哪个攻击者愿意把这些昂贵的流量浪费在一个“素未谋面”的陌生IP。 更何况，L3/L4的泛洪攻击，流量先到了机器的网口再进iptables链规则，iptables drop 卵用没有。 漏洞攻击 还是那句话，如果你不是已知的高价值目标，这些攻击通常只有自动化脚本执行： ssh只扫22，只用弱口令连接。 http/https，只用一些影响面较广的漏洞，PHP是重灾区 MySQL，3306端口，弱口令尝试，能进去就删库然后留下钱包地址 elasticsearch，9200端口，无口令/弱口令尝试，进去之后操作同上 我之前就栽过一回，因为是测试没怎么注意端口安全，结果服务器写了几十分钟elasticsearch突然报错找不到索引，重复好几次之后发现是9200端口暴露在外面被傻逼攻击者删库了，留下一串钱包地址…… 不是哥们，我这是测试数据……测试数据……妈的…… 我要这公网有何用，我要这IP又如何？ 既然要把所有公网端口关掉，请问你买独立ipv4服务器的目的是？每个月给IDC付一笔包含ip费用的订阅费的目的是？ 你省下几块钱买个NAT机它不香吗？ 安全方法论 SSH 高位端口，仅密钥登录，管理好私钥。做到这三点，你的服务器ssh已经足够安全了。 如果OpenSSH真的被爆出安全漏洞，相信我，你绝对不会是第一个受害者。没那个资格知道吗（乐 不是很推荐小白在完成以上操作之后再给ssh配置fail2ban，因为在这样的架构下fail2ban充其量只能减少部分日志噪音，但如果不熟悉配置反而会增加自己被关在外面的风险。 Nginx，或者说http/https服务 三板斧： 把默认请求全部返回444，不要设置真实的默认站点。这样所有host header不正确的http攻击请求都不会落到真实的后端。 保护好源站IP与域名的映射关系。Cloudflare防御，我们通常把“不暴露源站”作为安全宗旨，但这不严谨。只要你有公网IP，那源站一定处在各种扫描的风险中。真正不能暴露的，是 域名与源站的映射关系 ，也就是这条域名的真实解析目标。配合第一点，绝大多数CVE扫描都只会得到444。 防火墙给cloudflare ip加白。如果你的所有网站都透过cloudflare代理，那么80/443端口可以只给cloudflare ip放行，其他攻击扫描流量根本打不过来。cloudflare的ip段说是可能变化，实际上好像压根没变过。 另外，能够容器化的尽量容器化，即使真的有网站被提shell了，攻击者也很难把整个服务器一锅端。 安全哲学 安全是一套系统性的设计，它不只关注“被入侵风险”这一条，而是要综合考虑错误配置风险、单点故障风险、凭据丢失风险、误操作风险、可恢复性等等。 任何安全体系都不是尽善尽美的，没有所谓的绝对安全。当你为了追求那一点点边际效用，无限累加操作复杂度的时候，其实反而会在运维层面引入更高的风险。 各位可以在站内搜索一下我的黑历史，包括但不限于elasticsearch被删库n次、iptables把自己关在外面等等…… 39 个帖子 - 25 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 15:13:54 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792774",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792774",
+    "title": "hub 上完全不降智 grok4.6 free大家可以去试试",
+    "body": "在 hub 上面，随便大家测 教程如下 【开源】grok 防降智插件更新：新的降智模型出现 开发调优 本帖使用社区开源推广，符合推广要求。我申明并遵循社区要求的以下内容： 我的帖子已经打上 开源推广 标签： 是 我的开源项目完整开源，无未开源部分： 是 我的开源项目已链接认可 LINUX DO 社区： 是 我帖子内的项目介绍，AI生成、润色内容部分已截图发出： 是 以上选择我承诺是永久有效的，接受社区和佬友监督： 是 以下为项目介绍正文内容，AI生成、润色内容已使用截图方式发出 今天多出现… 希望大家都能用上便宜的 token 20 个帖子 - 10 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 08:15:16 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793699",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793699",
+    "title": "送30张50刀额度的codex公益站卡密，先到先得！ ！",
+    "body": "送30张50刀额度的codex公益站卡密，临时额度的，限今天24点之前用完，一人一码（使用临时额度不受任何限速规则的限制） codex公益站： http://new.sharedchat.cc/ 卡密： RC-18F76964A11E3F0888F1D477 RC-95E75CB5F2E4E9A9DC7C1644 RC-D105C202A5AACEBCD0A2AD2A RC-3C433ED79F77B640F533BE74 RC-FB3A40AE78E6E06A7D82863F RC-78E660549E908E296311A86A RC-2DA6B9AE3ED7564F65820E02 RC-0F96D550F2F39BB4B9AA3EEB RC-EB981CF8DE41CA8D0BFDDD14 RC-1BDC6A7F9315F5F3292540D6 RC-172557BBB5C95AE8C4C98E7E RC-B5003D35712491C0EFA5A81F RC-C39B16C33446AF114891961B RC-5FBADFC4ECC490B3E083FA11 RC-C95ED22894FDD3E5669715DC RC-E9EAAB89CDA2BE69AE21AC6D RC-99BD71E92AA6DFFE27DECEBC RC-56283A6566AA3FC914960D6A RC-61BF95318879C50A3AE28666 RC-5A54991523CA6378465795DF RC-9FEF37E25B603CC305F3C307 RC-E0E2E437848487E46D20CD72 RC-2D57621AC7B733F2D268CD1B RC-6D3FCF414FE75399C6F79E4C RC-BE4062EF382026EC41F01FDE RC-E59E042B10845BE6E6ADCF93 RC-51B637423776011455EDE6DE RC-802F73B34E7B78C4AD0FB12A RC-3B1A5A79CB58D5B185A1BA1F RC-DCF7B58D93CDCFE4FF2CFE78 qq群：743205852（有问题群里反馈回复速度会） 45 个帖子 - 33 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 12:49:24 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793678",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793678",
+    "title": "DeepSeek V4 峰谷计费规则调整通知",
+    "body": "尊敬的 DeepSeek API 用户： 您好！ 我们将于北京时间 2026 年 8 月 23 日（周日）00:00 起，对峰谷计费规则做如下调整： 工作日（周一至周五）：继续执行原有峰谷分段计费。 周末（周六、周日）：全天不再区分峰谷时段，统一按照低谷时段价格收取调用费用。 此调整旨在让您在周末更灵活地安排业务，无需担心高峰时段成本，同时也有助于我们平衡全网算力负载，持续为您提供更优质稳定的服务。 特别说明： 新规则自北京时间 2026 年 8 月 23 日凌晨（周日 00:00）起生效，届时系统将自动按新标准计费。新规则生效前的费用，仍按原计费规则结算，敬请理解。 如您在计费调整后继续选择使用我们的服务，则代表您已同意调整后的计费方式；如不同意接受则可选择退出使用并申请退费。如有任何疑问或需进一步了解相关信息，请随时联系我们。 感谢您对我们的支持与理解！ DeepSeek 团队 15 个帖子 - 11 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 12:42:30 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2792696",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2792696",
+    "title": "免费牛来大模型真身疑似暴露",
+    "body": "目前我所在的mimo订阅群有数人反应自ox alpha模型上线后mimo套餐使用不扣费，@群内mimo工作人员询问是否mimov3后反应比较暧昧。各位有mimo订阅的佬可以去试试 22 个帖子 - 21 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 07:50:21 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2794731",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2794731",
+    "title": "算公益站吧？临时域名邮箱【喵盟邮箱】-目前支持Claude和grok注册",
+    "body": "我也不知道这算不算公益站，也随大流贴个声明好了 总结 （点击了解更多详细信息） 喵盟临时邮箱，现在开放给佬们~ tfm.memom.mom 喵盟 · 临时邮箱 · memom.mom 喵天下第一好！喵统一宇宙！ 说重点： 自己建和自己用的临时邮箱，给迭代了一下，分享给佬们。已经支持linuxdo注册，注册用户默认有10个临时邮箱额度。 只能收件不能发件！ 不是AI公益中转站！ 当然，其实不注册也能用。 主要作用是：方便想注册一些支持域名邮箱的站点（比如grok）又不想留痕的佬。 还做了验证码提取，不用点进邮件里，方便直接复制粘贴。 还做了邮箱找回（无需注册），如果遇到需要邮箱二验三验的场景，还可以通过邮箱找回来收取邮件。 为了节省资源，邮件48小时后会清除。 下面是AI的一些总结： ====== 实测支持的一些平台：grok、Claude、Notion、Figma等。 （但随着我的分享，大概率这些站点升级风控之后，可能以后某一天就不会再注册了，这里我不做任何承诺哦） 最后提醒，轻量级使用，不要当主账号邮箱，因为公益站嘛，指不定哪天就访问不了了… 最后的最后…看看你们的猫好吗？？ 11 个帖子 - 8 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 17:27:49 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793249",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793249",
+    "title": "感觉Google要发力了",
+    "body": "经过数月的内斗，Google很显然已经调整好队伍，准备一起发力了 宣传侧已经能看到Google在国内铺天盖地的推文，最近还联动通往AGI之路做活动，B站推给我Google云的视频相当之多，上海杭州各地围绕着Google 云做的活动也多了起来，不知道下发多少经费 整个谷歌内斗是很有趣的，打算出篇文章后续聊聊，事实上很早之前，差不多和那个老哥在油管上发视频同期就已经在收集素材了 但我总觉得不太对味，反击战怎么也得拿出旗舰模型来对抗吧。。。这算个什么啊。。。 31 个帖子 - 25 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 10:33:06 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2793756",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2793756",
+    "title": "AI蓝皮书：Google Antigravity & Gemini 3.7 Flash 使用和进阶",
+    "body": "新人首次发帖，有问题请版主多担待，也不知道发没发对区。转一下自己刚刚写的新鲜的BLOG，只要能接受3.7 Flash的水平，那确实就是D4F当前最好的平替啦。其实还是建议用更好的模型做规划，用3.7 Flash干活，这样的效果最好。 一、账号准备/套餐购买 1、购买Google AI Pro套餐：小黄鱼很多，风险自己承担，群内的朋友可以私聊群主要渠道（也是小黄鱼），但是也不保证100%安全。 2、准备好 梯子 ，Gemini对梯子要求很高，且使用全程都需要梯子。BLOG主自己用的主力梯子WD，目前看美国节点是OK的。如果有变化，这里会更新。 3、打开这个 网址 （需要登录），查看自己Google账号的地区归属，这里的归属必须是美国、加拿大、印度、日本等支持Gemini的国家和地区。 如果这里写的不是符合的地区（比如中国），那么请根据下方截图，填入对应内容，然后点击提交。注意你选择的美国州，要与你申请文字里面的州对应。（比如下图BLOG主选择的是俄勒冈州-Oregon） I am currently working on a project that requires access to US-exclusive developer tools and early access programs. To proceed with my work, I need to update my account region. Please assist me in changing my location to Oregon, USA. 如果怕文字被抄太多次，建议AI改写一下，提交之后一般30分钟就会有回信（gmail邮件里面找）。 4、梯子的问题 梯子有两种解决方式，一种是用 Clash的本地版本 ，直接去仓库下载最新版，然后打开Tun模式，把节点替换到支持的地区，基本就OK了。 另一种方法是BLOG主这种使用路由器（梅林）Clash的，需要自行添加三行“自定规则”，确保转发正确，然后切换到国外的节点即可。 二、安装 打开 Google Antigravity （反重力）官网，并点击中间大大的Download按钮，会根据你当前系统，弹出对应的安装页面 接下来我们会看到Antigravity有两个版本，一个是带有完整桌面端UI的应用程序（Antigravity 2.0），这个比较适合办公、开发、新手使用。 而下面的Antigravity CLI则是类似于Claude Code或者Codex那样的命令行模式，依托于PowerShell启动，更适合有经验、喜欢纯命令行形式的人使用。 下面，BLOG主以更为复杂的Antigravity CLI作为例子，讲解如何一步步安装使用Antigravity。首先，复制Windows PowerShell中的安装指令（右面那个按钮就是复制按钮） 然后打开系统的Powershell（右键下方的WIN图标，打开“终端（管理员）”即可），然后把刚刚复制的命令黏贴上去（鼠标右键就可以黏上去），然后回车运行。注意这里必须 梯子 ，没有你直接用不了。 安静的等待几分钟，只要看到绿色提示的安装成功标志，就代表Antigravity已经安装好了！ 接下来我们正式启动并完成首次安装配置。我们需要关闭这个终端窗口，然后重新打开一次，随后输入“agy”，然后回车。如无意外，你的Antigravity就会正常启动。接下来，我们开始进入初次设置页面 第一步， Google OAuth ：使用个人 Google 账号登录，通过浏览器弹窗完成授权。无需提前准备任何东西，只要你有 Gmail 等个人 Google 账号就行，这是最快、最通用的上手方式。 Use a Google Cloud project ：适用于 企业级开发或团队协作 ，需要绑定特定的 GCP 项目。需要提前准备：一个已启用结算功能的 Google Cloud 项目，并配置好对应的 API 凭据。作为个人用户，我们选择第一项即可。 随后，它会自动弹出浏览器，并让你选择登录的Google账号，我们直接登录刚刚开通了Google AI Pro的账号，完成登录后，会出现一个授权码，点击“Copy to Clipboard”就会帮你复制到剪贴板上。 接着，我们将刚刚的授权密钥填写回Powershell终端上，回车确认即可。 登录完成后，我们会进入首次设置界面，第一项是界面风格，上下预览，回车确定，这个根据自己喜好选择即可。 第二项则是CLI的使用条款，选择同意（Yes）之后，再按下面的Done确认即可。 最后则是选择是否信任启动目录（授权），这里跟其他Agent一样，直接选择信任即可。 最后当我们看到以下的界面，我们的Antigravity CLI就正式可以使用了！ 三、常用的命令 1、查询剩余额度 直接在agy上输入“/usage”可以查询剩余额度 2、切换模型 直接在agy上输入“/model”可以切换模型和思考深度 3、选择会话 直接在agy上输入“/resume”可以选择过去启动过的会话 4、在agy上使用“shift+tab”组合键，可以切换工作模式（default → accept-edits → plan）。三个模式分别是default：默认模式，任何修改、创建都会向你确认；accept-edits：自动批准模式，文件的修改、创建都会自动批准（但不包括执行python）；plan：计划模式，AI会先分析和规划如何解决问题，只读指令。 5、在终端上（还没进入agy）输入“agy --continue”可以快速进入本目录上一次对话。 6、在终端上（还没进入agy）输入“agy --dangerously-skip-permissions”可以进入完全跳过权限，跟Claude Code的“claude --permission-mode bypassPermissions”权限类似，很方便但也有风险，具体是否使用看个人选择。 四、报错 上面列出的是BLOG主自己遇到的错误，提示的内容是GOOGL账号并未通过18岁年龄认证，请打开 这里 ，根据提示进行年龄认证，重启一次终端，即可解决。 11 个帖子 - 9 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 13:04:37 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2790883",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2790883",
+    "title": "Lite版用户需知",
+    "body": "一、何为 Lite 版用户 2026 年 8 月 19 日 及之后，通过非 @system 用户（Premium 组也不例外）生成的邀请链接加入 L 站的用户，都是 Lite 版（青春版）用户。 二、Lite 版权限 可正常升级，但飞升 2 级后还是无法查看 Connect（包括邮箱申请）； Lite 版账号没有 oauth 权限，也就是无法登录公益站、LDC、CDK 等系统，这也是区分标准； Lite 用户自己创建的 oauth 应用，自己是可以登录。 [!tip] 除以上区别，其他权限与普通用户无异。 三、Lite 版查看信任等级 网页端用户可使用 LDStatus Pro 油猴脚本 [!tip] 需先在浏览器下载油猴插件，再安装脚本 信任等级 可执行权益 信任等级 1 可查看 L1 级别帖子；可以发送私信和私聊；编辑帖子和上传图片/附件；一周未登录会被清理 信任等级 2 可查看 L2 级别帖子；账号不会被清理；每日点赞、编辑和举报次数上限提高 1.5 倍；用户可在发布后 30 天内编辑自己的帖子 信任等级 3 可查看 L3 级别帖子（包括女装）；对主题进行重新分类和重命名；可以设置 wiki 贴；申请 社区专属邮箱 ；每日点赞、编辑和举报次数上限提高 2 倍；解锁社区 AI；CDK + 20 分 四、Lite 版需知 发帖|举报|审核 我要如何在站内水帖不被炼化 《万事不通·L站指南》 ，带你了解更多 49 个帖子 - 39 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Fri, 21 Aug 2026 16:10:31 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2790912",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2790912",
+    "title": "🤣[焚诀] 中转站真假Fable的遮羞布",
+    "body": "最近测试了一个中转站，在Ztest.ai中的结果是90/100，但这种测试站只能说hhh懂得抖动： 该站虽然提供了号池页面，但在 GA 的真实任务测试中，输出行为与个人 Claude Max 20x 的 Fable 存在明显差异。就本次样本而言，我将它判定为疑似假 Fable。 测试地址： supeai 测试分组： Claude Max 满血版 测试环境： GenericAgent（GA） 中转站分组的截图： ztest.ai测试结果： 如何检测 要检测是否是真Fable，不要只看模型名称、思维链或者号池页面。这些都不能证明请求实际走了哪个上游。比较有效的方法，是 在相同 GA 环境中安排一个必须操作文件、检查代码并运行验证命令的任务 ，然后对比两边的完整执行过程。 本次对比： • 左侧：个人 Claude Max 20x 的真实 Fable • 右侧：中转站的“Claude Max 满血版” 我们自己反代的fable可以看到连续、密集的真实工具调用： • file_read • code_run • 再次读取文件 • 再次运行检查 • 根据返回结果继续修正判断 一句话总结，真fable非常善于调用工具！基本上80%的情况都在调用工具，如果没有调用GA工具就大概率假的Fable，也不要相信各种检测网站！！ 另一方面也说明GA工具设计的合理性 ，快去大家把，PS: 基本上这套方案可以检测是否存在防封提示词注入，缓存命中是否存在问题。 还有部分中转站设置了 防封 ，这部分中转站只允许Claude Code的工具，将用户上传的工具进行了改写，这部分中转站目前无法检测，风险存在，自己考虑。特征是GA中出现Compact开头的工具调用，并且无法执行工具。并且这部分中转站也不大概率支持MCP工具，建议不要使用…无法确定真假 35 个帖子 - 18 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Fri, 21 Aug 2026 16:28:00 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2794842",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2794842",
+    "title": "对于小米路转黑了",
+    "body": "妈个蛋，小米这个烂手机给我气炸了 俺在德国某城市打车，到家了以后用手机nfc支付；平时都还好好的，只是偶尔会抽一下风，结果今天罢工了，nfc死活刷不上，我就尝试一键修复，修复完需要重启一下，结果重启半天没反应，仔细一看给我系统更新了，我明明关了自动更新，结果愣是在这个时间点给我更新了，司机等的不耐烦了，让我把学生证和手机留下，我回家拿实体卡。 好歹拿了实体卡下楼把钱付了。还因为等待多付了五六欧。 傻卵小米手机以后再也不买了！ 提示：下面有华米对线，佬们看看我的牢骚就差不多了，别往下拉了 105 个帖子 - 38 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 19:54:51 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "linuxdo:2794395",
+    "source": "linuxdo",
+    "url": "https://linux.do/t/topic/2794395",
+    "title": "【开源推广】MeloX-Android：一款类似于Apple Music的第三方音乐软件",
+    "body": "本帖使用社区开源推广，符合推广要求。我申明并遵循社区要求的以下内容： 我的帖子已经打上 开源推广 标签： 是 我的开源项目完整开源，无未开源部分： 是 我的开源项目已链接认可 LINUX DO 社区： 是 我帖子内的项目介绍，AI生成、润色内容部分已截图发出： 是 以上选择我承诺是永久有效的，接受社区和佬友监督： 是 以下为项目介绍正文内容，AI生成、润色内容已使用截图方式发出 开源地址： github.com GitHub - lladlam/MeloX-Android: 基于MeloX的第三方网易云客户端，提供特色功能。 基于MeloX的第三方网易云客户端，提供特色功能。 第一次宣传自己的开源项目，轻点喷（ 这是什么软件？ MeloX-Android，一款类似于Apple Music第三方音乐软件，支持网易云音乐，QQ音乐与酷狗音乐，从上游MeloX迁移过来（上游只有iOS版本与网易云音乐端，虽说是迁移但还是增加了一些特有功能） 支持什么功能？ 基础的功能就先不讲（ 剧透 ）， 目前大部分个性化功能仅支持网易云音乐，后续将会随时推进其他音乐源，下面的功能不保证其他音乐源可用 。我们拥有包括但不限于以下功能： 每日推荐 心动模式 私人雷达/漫游 云村热播 排行榜 最近热门 发现 Apple Music样式UI/歌词显示 智能歌词获取 第二者音乐获取（指拿别人有VIP账号的凭证获取会员歌曲/音质 剧透 ） 完整功能请去项目README中查看 一些屏幕截图 为什么要做这款软件？ 现在的音乐客户端除了苹果我觉得UI都太乱，信息都太杂，没那种美感（？），刚好看到网友的MeloX项目，就想着把这个项目迁移过来放到Android上有多好，有这个想法就迁移过来了 体验怎么样？ 我做这款软件就冲着体验来的，所以我即是开发者也是用户（ 我就从我的角度看吧，还比较像Apple Music iOS端，但是UI还是有缺陷，比如歌手页面专辑页面还是没有完全适配迁移这些，但是完全不影响你的日常体验 emmm就说那么多，功能要自己去体验才能知道真假与好不好用。反馈的话README里面有群号，可以进群讲也可以提交Issues（最好还是提交Issues），那就讲到这里了，感谢各位佬友的使用！ 开发中软件，使用版本号为0.4.1-Beta，不代表最终品质 42 个帖子 - 13 位参与者 阅读完整话题",
+    "body_is_excerpt": true,
+    "published_at": "Sat, 22 Aug 2026 15:32:44 +0000",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": "⚠️ 正文为 RSS 摘要，标注前须补全文"
+  },
+  {
+    "id": "v2ex:1236462",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236462",
+    "title": "感觉 Vibe Coding 时代， Windows 系统要凉了",
+    "body": "LimaEcho: 起因是感觉 Windows 系统太难受了。不管是什么模型，codex ，claude ，DeepSeek 都有反复死磕命令行，都不知道这几个月会浪费我多少 token ； 1.各位是否有同感呢？ 2.有必要更换 Mac 吗，如果有，大家有什么推荐吗? 但是这个时间点买电脑又贵，有没有便宜的推荐，这种不需要很多的性能吧，没用过 Mac 系统，请教各位大佬 最近接了几个大项目，都赶在一起了，看他死磕，感觉难受",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 13:31:41 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236410",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236410",
+    "title": "[Android 封闭测试] 找几位朋友帮忙体验《像素数织》，送完整内容兑换码",
+    "body": "sherlockGou: 大家好，我开发的《像素数织》 Google Play 版本推进到封闭测试阶段了，想找几位平时喜欢益智游戏的朋友，帮我实际体验一下。 《像素数织》是一款通过行列数字线索，还原像素图案的逻辑益智游戏。玩法比较简单：根据数字判断哪些格子应该填满，哪些格子应该留空，一步步推理，最后把隐藏的图案拼出来。 它不太考验反应速度，主要是慢慢分析和排除。顺利解出一道比较大的题时，还是挺有成就感的。 宣传截图如下： 参与方式： 需要有 Android 手机，并且可以正常使用 Google Play 留下邮箱我会邀请加入测试，并发放邀请码，数量有限(50 个) 实际体验几关，或者试试自由模式、创造模式 遇到 Bug 或有建议，可以在帖子里回复，也可以私信告诉我 感谢大家，也欢迎喜欢 Nonogram 、数织、逻辑拼图类游戏的朋友来试试。 很少在 V 站发帖，如果发布的节点有问题还请见谅并告知，我会移动到合适位置。 谢谢大家～",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 08:31:31 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236404",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236404",
+    "title": "白菜用甲醛防腐..还有啥是安全的吗",
+    "body": "zsxzy: 抖音博主爆出河北白菜用甲醛防腐. 检测证实甲醛含量很高, 我还挺喜欢吃白菜 南方做泡药杨梅, 北方搞甲醛白菜... 还有啥能吃的吗 :)",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 08:00:10 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236394",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236394",
+    "title": "你们开梯子会有反诈中心的电话打来吗",
+    "body": "asmallcake: 国产手机，开梯子会有反诈中心 96110 电话打来吗，如何预防呢？",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 06:49:52 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236385",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236385",
+    "title": "亲人去世后的手机破解问题",
+    "body": "q307990588: 现在有一亲人去世了，他留下了一部锁屏的红米手机。 现在需要输入四位数的数字密码来解锁。 我问了几个 AI ，能不能通过电脑连接手机，然后尝试自动破解，也就是不停的不停的输入各种四位数的组合，直到解锁。 AI 不知道是受到安全限制，还是真的无法做到。 说是只能通过人工来输入四位数的数字来尝试暴力破解。 我想在这里问一下大家。还有没有其他的更好的方案？ 人工输入四位数字的话，需要输入 1 万次。 每次输入后的平均等待时间大概是 5 分钟，这个耗时太久了。",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 05:57:58 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236362",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236362",
+    "title": "[Air Router] GPT Plus 0.1 风控期间依然稳健, 还有 CC 1x, Pro 0.2, Grok Heavy 0.2, 新用户留言 ID 可得 5$额度,现在充值额外赠 10%",
+    "body": "violin84: Air Router：希望提供和呼吸一样便捷的 AI 服务 站点地址： https://www.air-router.com 充值地址： https://catfk.com/shop/air-router 价格 模型 倍率 备注 GPT Plus 0.1x 最近拉闸的很厉害，但依然比较稳定 GPT Pro 0.2x 正价号池，非黑 Claude Max 1.0x 缓存读取 5 折, 不是逆向, 毛子渠道, 是 CC Max GROK Super 0.1x — GROK Heavy 0.2x — 最近 24H 可用率 sub2api 自带的, 每秒 token 有点儿 bug 优势与劣势 优势 不是最低的价格，适合有一定稳定性需求的个人用户 非超级风控，价格基本不会变，目前的价格基本是能兼容稳定性和可用率的极限 劣势 无法开票 当前活动 充值额外赠送 **10%**（售后群联系群主） 本帖注册回复 ID 即可获取 5$ 体验额度 ，可以使用任何分组 ID 在右上角： 最后想说的 虽然是个小站，但绝不渗水 AFF： 5% 退款无手续费 售后群： 491111762",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 02:59:39 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236360",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236360",
+    "title": "[送码] 做了一个 Apple tv 上的小红书 Rouge",
+    "body": "mdah233: Apple tv 上已经可以刷 B 站、抖音了，还缺少一个小红书，毕竟现在看小红书视频的时间已经超过了 B 站和抖音，自己有需求于是做了一款 tv OS 端的小红书 APP 。目标场景在沙发上刷起 Apple tv 就不想拿手机来看，看久了电影电视剧长视频想刷一刷社交媒体和短视频放松一下。 核心功能： 浏览小红书推荐瀑布流 浏览小红书笔记图文和评论 独立的视频页签，专门沉浸式播放视频流 查看个人主页，笔记、点赞、收藏 支持多帐号登录切换 目前已经发布到 appstore 直接搜索名称 Rouge 或者通过 商店链接 下载，目前早期版本售价：2$，后续功能完善后可能会涨价。 同时欢迎大家加入 TF 参与测试： https://testflight.apple.com/join/15CTWsQW 最后评论区送 10 个兑换码。",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 02:43:11 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236355",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236355",
+    "title": "纯直男求推荐一些靠谱的护肤/美白品,我对美妆完全不通.找资料看的头大感觉基本都是带货的.",
+    "body": "cvooc: 之前出去浪, 把皮肤晒脱皮了, 最近俩月往回调, 感觉似乎的确比之前很了很多, 而且肤色不均了, 脸/脖子/大腿/小腿 四个颜色. 比如水杨酸/烟氨酸/377 这种各种乱七八糟的元素, 基本上可以出现在洗面奶/面霜/沐浴露/面膜, 等等各种乱七八糟的地方, 能查到的都是各种带货, 也不知道有没有用. 问下路过的兄弟, 你们都在用哪些护肤品? 有哪些有效的? 我主要就是想找找美白和护肤的, 把肤色调整一下. 速效也行, 我不是敏感肌.",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 02:28:27 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  },
+  {
+    "id": "v2ex:1236346",
+    "source": "v2ex",
+    "url": "https://www.v2ex.com/t/1236346",
+    "title": "giffgaff 已经发解封邮件过来了",
+    "body": "zarvin: 如题，还多送了 10 欧。不知道以后还会不会封号",
+    "body_is_excerpt": false,
+    "published_at": "Sat, 22 Aug 2026 01:47:14 GMT",
+    "expected": {
+      "decision": null,
+      "mandatory_class": null,
+      "section": null,
+      "filter_rule_id": null
+    },
+    "label_source": "machine_proposed",
+    "note": ""
+  }
+]

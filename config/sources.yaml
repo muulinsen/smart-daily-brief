@@ -1,0 +1,184 @@
+# ============================================================
+# 智能日报系统 —— 来源配置（示例）
+#
+# 这里只放了几个公开的官方博客作为示例；你自己的来源建议在后台「订阅源」页添加
+# （后台新增的来源不会被本文件的同步覆盖）。修改本文件后执行 `npm run sync`。
+#
+# 【endpoints 语义】按 priority 升序尝试，priority 1 失败才回退。
+# 每轮采集都从 priority 1 重新开始；只有仍处于 403/429 冷却期的主机
+# 会被暂时跳过。普通 404/5xx 不做粘性缓存，每次尝试都写审计。
+# ============================================================
+
+meta:
+  source_version: 1
+  updated_at: "2026-11-10"
+
+# ------------------------------------------------------------
+# 主机分组限流：同一组的主机共享并发与最小请求间隔
+# ------------------------------------------------------------
+host_groups:
+  rsshub:
+    hosts: [hub.slarker.me, rsshub.app, rsshub.rssforever.com, rsshub.bestblogs.dev]
+    concurrency: 1
+    min_interval_ms: 8000
+    timeout_ms: 40000
+    max_retries: 2
+    note: >
+      实测限流：单请求 0.87s，连续请求退化至超时。rssforever 的 telegram/jike
+      路由曾整体不可用约 1 小时后自行恢复 —— 间歇性，故 slarker 置于 priority 1。
+      11 次请求 × 8s 间隔实测总耗时 92.5s，与预估 60-90s 吻合。
+  telegram_web:
+    hosts: [t.me]
+    concurrency: 2
+    min_interval_ms: 1000
+    timeout_ms: 20000
+    max_retries: 2
+  github_x_rss:
+    hosts: []        # 填写你的 X → RSS 服务的主机名（例如自建 RSSHub、GitHub Pages）
+    concurrency: 2
+    min_interval_ms: 1000
+    timeout_ms: 20000
+    max_retries: 2
+    note: "X 账号订阅（订阅源 → X 账号）使用的限流分组"
+  fulltext_discourse:
+    # linux.do 走 /t/topic/{id}.json（59KB）而非 HTML（422KB）。
+    # 【实测限流】36 次请求以 2s 间隔突发后被 Cloudflare 判定限流，
+    # 返回 429 + 「Just a moment」质询页且无 Retry-After，之后连 2s
+    # 间隔也持续 429。故降到 10s 间隔、单轮 5 条：
+    # 5 条 × 72 轮/天 = 360 条/天配额，远超每天新增的 20-40 条需求。
+    # 另注：linux.do 对 Node 内置 fetch(undici) 一律 403 质询，
+    # 必须走 curl 通道（TLS 指纹差异，补请求头无效）。
+    hosts: [linux.do]
+    concurrency: 1
+    min_interval_ms: 15000
+    jitter_ms: 3000
+    timeout_ms: 25000
+    max_retries: 1
+  linuxdo_feed:
+    # 官方 RSS 与全文共享 Cloudflare 防护。保持串行，并由持久化主机熔断器
+    # 在 403/429 后执行 1h → 6h → 24h 冷却；镜像不受该熔断影响。
+    hosts: [linux.do]
+    concurrency: 1
+    min_interval_ms: 15000
+    jitter_ms: 3000
+    timeout_ms: 25000
+    max_retries: 0
+  fulltext_v2ex:
+    # v2ex 走 /api/topics/show.json（3.4KB）而非 HTML（120KB），未见限流。
+    hosts: [v2ex.com, www.v2ex.com]
+    concurrency: 1
+    min_interval_ms: 2000
+    timeout_ms: 25000
+    max_retries: 1
+  direct:
+    hosts: [linuxdorss.longpink.com, elsewhere.news, api-docs.deepseek.com, www.supertechfans.com, feeds.feedburner.com]
+    concurrency: 2
+    min_interval_ms: 1000
+    timeout_ms: 20000
+    max_retries: 2
+  jina_reader:
+    hosts: [r.jina.ai]
+    concurrency: 1
+    min_interval_ms: 2000
+    timeout_ms: 30000
+    max_retries: 1
+    note: "仅用于读取被源站 Cloudflare 拦截的公开官方页面；响应由本地解析并落库"
+
+# ------------------------------------------------------------
+# 抓取默认值（PRD 4.4）
+# ------------------------------------------------------------
+defaults:
+  connect_timeout_ms: 5000
+  total_timeout_ms: 20000
+  max_body_bytes: 5242880          # 5 MB
+  user_agent: "BriefingBot/1.0 (+personal daily digest; contact via repo owner)"
+  conditional_get: true            # ETag / If-None-Match / Last-Modified
+  follow_redirects: 3
+  assumed_timezone: Asia/Taipei    # 无时区信息时的兜底（PRD 5.4）
+
+# ------------------------------------------------------------
+# 采集节奏分档（harvest_interval_minutes）
+#
+# 依据各来源 feed 的时间跨度。按跨度分档，避免对来源造成不必要的压力。
+#
+# 定档原则：
+#   · 榜单型（按热度轮转，条目可能在窗口内上榜又掉榜）→ 最密，20 分钟。
+#     时间跨度对榜单是弱信号，不能据此放宽。
+#   · 时序型 → 取 min(跨度/6, 240) 并向下取整到档位，保证条目在滚出
+#     feed 前至少被采集 6 次。
+#   · 所有档位都远小于最短窗口（午报 4 小时），不影响窗口完整性。
+# ------------------------------------------------------------
+harvest_tiers:
+  ranking_feed: 20        # 榜单型：v2ex, linuxdo
+  standard: 60            # 时序型主力
+  slow: 240               # 极低频：elsewhere
+  official_changelog: 120 # 官方日志：deepseek
+
+# ------------------------------------------------------------
+# 来源（示例）
+# ------------------------------------------------------------
+sources:
+
+  - id: openai_news
+    name: OpenAI News
+    display_name: OpenAI News
+    vendor: openai
+    official: true
+    role: official                     # official=官方动态 / politics=时政速览 / context=仅开源项目提取与转载比对
+    site_url: "https://openai.com/news/"
+    category: ai
+    source_group: openai
+    harvest_tier: official_changelog
+    enabled: true
+    priority: 1
+    host_group: direct
+    endpoints:
+      - { url: "https://openai.com/news/rss.xml", parser: rss, priority: 1 }
+
+  - id: google_ai_blog
+    name: Google AI Blog
+    display_name: Google AI Blog
+    vendor: google
+    official: true
+    role: official                     # official=官方动态 / politics=时政速览 / context=仅开源项目提取与转载比对
+    site_url: "https://blog.google/innovation-and-ai/technology/ai/"
+    category: ai
+    source_group: google
+    harvest_tier: official_changelog
+    enabled: true
+    priority: 1
+    host_group: direct
+    endpoints:
+      - { url: "https://blog.google/innovation-and-ai/technology/ai/rss/", parser: rss, priority: 1 }
+
+  - id: claude_code_changelog
+    name: Claude Code Changelog
+    display_name: Claude Code Changelog
+    vendor: anthropic
+    official: true
+    role: official                     # official=官方动态 / politics=时政速览 / context=仅开源项目提取与转载比对
+    site_url: "https://code.claude.com/docs/en/changelog"
+    category: ai
+    source_group: claude
+    harvest_tier: official_changelog
+    enabled: true
+    priority: 1
+    host_group: direct
+    endpoints:
+      - { url: "https://code.claude.com/docs/en/changelog/rss.xml", parser: rss, priority: 1 }
+
+  - id: cloudflare_blog_zh
+    name: Cloudflare 中文博客
+    display_name: Cloudflare 中文博客
+    vendor: cloudflare
+    official: true
+    role: official                     # official=官方动态 / politics=时政速览 / context=仅开源项目提取与转载比对
+    site_url: "https://blog.cloudflare.com/zh-cn/"
+    category: tech
+    source_group: cloudflare
+    harvest_tier: standard
+    enabled: true
+    priority: 1
+    host_group: direct
+    endpoints:
+      - { url: "https://blog.cloudflare.com/zh-cn/rss", parser: rss, priority: 1 }

@@ -1,0 +1,17 @@
+[Unit]
+Description=每日 08:00（北京时间）触发完整日报运行（前 24 小时，RSS 发布）
+
+[Timer]
+# 2026-10-22 起每日一期（原三期 08/12/22）。内联台北时区（= 北京时间）。
+# 必须与 rules.yaml windows.schedule 的 end_hour 一致 ——
+# 不一致会漏掉窗口结束到实际发报之间的内容。
+OnCalendar=*-*-* 08:00:00 Asia/Taipei
+# PRD 5.3：计划时间后 0–10 分钟触发仍属正常
+RandomizedDelaySec=120
+# 服务器离线恢复后补跑，但 brief.ts 默认不重复投递（deliveries 唯一键）
+Persistent=true
+AccuracySec=30s
+Unit=brief-run.service
+
+[Install]
+WantedBy=timers.target

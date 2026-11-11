@@ -1,0 +1,11 @@
+[Unit]
+Description=每日 03:30（台北）执行维护
+
+[Timer]
+OnCalendar=*-*-* 03:30:00 Asia/Taipei
+RandomizedDelaySec=300
+Persistent=true
+Unit=brief-maintain.service
+
+[Install]
+WantedBy=timers.target

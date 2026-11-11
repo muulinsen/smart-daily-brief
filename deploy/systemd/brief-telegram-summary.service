@@ -1,0 +1,17 @@
+[Unit]
+Description=Briefing Telegram due-window summarizer
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+ExecStart=/usr/bin/node apps/worker/src/telegram-summarize.ts
+MemoryHigh=120M
+MemoryMax=180M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/briefing

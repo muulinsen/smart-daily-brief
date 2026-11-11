@@ -1,0 +1,11 @@
+[Unit]
+Description=Check Telegram summary windows every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+AccuracySec=5s
+Unit=brief-telegram-summary.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,40 @@
+[Unit]
+Description=Publish public briefing and Telegram subscription inventory to GitHub
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# GitHub CLI credentials are root-owned. This narrowly scoped publisher only
+# reads the two SQLite databases and updates one fixed repository file.
+User=root
+Group=root
+WorkingDirectory=/opt/briefing-system
+Environment=DATABASE_PATH=/var/lib/briefing/brief.db
+Environment=TELEGRAM_DATABASE_PATH=/var/lib/briefing/telegram/telegram.sqlite3
+Environment=PUBLIC_SUBSCRIPTIONS_GITHUB_REPO=<你的 GitHub 用户名>/<仓库名>
+Environment=PUBLIC_SUBSCRIPTIONS_GITHUB_PATH=SUBSCRIPTIONS.md
+ExecStart=/usr/bin/node scripts/sync-public-subscriptions.mjs --publish
+
+MemoryHigh=80M
+MemoryMax=120M
+TimeoutStartSec=120
+Nice=10
+
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target

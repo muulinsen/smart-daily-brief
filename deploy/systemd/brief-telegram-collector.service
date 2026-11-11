@@ -1,0 +1,25 @@
+[Unit]
+Description=Briefing Telegram read-only collector
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+Environment=TELEGRAM_MEDIA_DIR=/var/lib/briefing/telegram/media
+ExecStart=/usr/bin/node apps/worker/src/telegram-supervisor.ts
+Restart=on-failure
+RestartSec=10
+MemoryHigh=120M
+MemoryMax=180M
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/briefing
+
+[Install]
+WantedBy=multi-user.target

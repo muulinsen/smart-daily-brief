@@ -1,0 +1,38 @@
+# 十六源简报后台反向代理（计划 3.3）
+# 前提：brief.example.com 的 A 记录指向本机且为 Cloudflare 灰云（DNS only）——
+# 橙云代理会让 ACME HTTP-01 挑战无法完成。
+
+brief.example.com {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "same-origin"
+		X-Robots-Tag "noindex, nofollow"
+		-Server
+	}
+
+	# RSS 地址包含高熵订阅令牌；禁止浏览器把完整地址作为 Referer 外发。
+	@rss path /rss/*
+	header @rss >Referrer-Policy "no-referrer"
+
+	# 健康检查不写访问日志，避免噪声
+	@health path /health/* /rss/*
+	log_skip @health
+
+	reverse_proxy 127.0.0.1:3000 {
+		header_up X-Real-IP {remote_host}
+		health_uri /health/live
+		health_interval 30s
+	}
+
+	# 输出到 journald 而非文件：Caddy 自带 systemd unit 的沙箱不允许写
+	# /var/log/caddy，且本机 journald 已限 200 MB 并自动轮转，
+	# 少一处需要单独轮转与授权的日志文件。
+	log {
+		output stderr
+		format json
+	}
+}

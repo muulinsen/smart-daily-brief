@@ -1,0 +1,1334 @@
+# ============================================================
+# 十六源智能日报系统 —— 规则配置
+# 对应 PRD 第 7/8/9/15 章，由 PRD 21.2 要求版本化
+#
+# 修改本文件必须递增 meta.rule_version。历史简报通过
+# briefs.rule_version 回溯到当时生效的版本（PRD 21.2）。
+#
+# 【设计原则】程序能算准的，不写进 AI Prompt。本文件里的
+# signals / deterministic_filters 全部由代码执行；AI 只接收
+# 命中结果（PRD 1.3 确定性优先、15.2 输入最小化）。
+# ============================================================
+
+meta:
+  rule_version: 23
+  updated_at: "2026-11-05"
+  timezone: Asia/Taipei          # 全系统唯一时区基准（PRD 5.1）
+  description: "初版：从 PRD V1.0 自然语言规则拆解而来，未经影子运行校准"
+
+# ------------------------------------------------------------
+# 0. 固定窗口（PRD 5.1）
+#
+# 三个窗口首尾相接、覆盖全天，边界严格左闭右开。
+# 每个窗口在其 end 时刻发报，即简报内容 = 上一个发报时刻至本次之间。
+# 改这里必须同时改 systemd timer 的 OnCalendar，两者的时刻要一致 ——
+# 否则会漏掉窗口末尾到实际发报时刻之间的内容。
+# ------------------------------------------------------------
+windows:
+  timezone: Asia/Taipei
+  # 按 end 时刻升序排列；morning 跨日（前一天 evening_end → 次日 08:00）
+  # v22（2026-10-22）改为每日一期：前一天 08:00 → 当天 08:00（北京时间，与台北同为 UTC+8）。
+  # 恢复三期：改回 morning(8)/noon(12)/evening(22) 三项并同步 deploy/systemd/brief-run.timer。
+  schedule:
+    - { id: daily, label: 日报, end_hour: 8 }
+
+# ------------------------------------------------------------
+# 1. URL 规范化（PRD 7.2）
+#    目的：让同一内容跨来源产生相同 canonical_url
+# ------------------------------------------------------------
+url_normalization:
+  lowercase_host: true
+  drop_default_port: true        # :80 / :443
+  strip_fragment: true           # #anchor
+  trailing_slash: strip          # 统一去掉结尾斜杠（根路径除外）
+  sort_query_params: true        # 保留的参数按字典序排列，保证稳定
+  max_redirects: 3               # PRD 7.2：仅白名单短链跟随，最多 3 跳
+
+  # 追踪参数：命中即移除。prefix 为前缀匹配。
+  tracking_params:
+    prefix:
+      - utm_
+      - spm_
+      - scm_
+      - at_
+      - pk_
+      - vero_
+      - hsa_
+      - matomo_
+      - piwik_
+    exact:
+      # PRD 7.2 明列
+      - spm
+      - from
+      - source
+      - ref
+      # 广告平台点击 ID
+      - gclid
+      - dclid
+      - gbraid
+      - wbraid
+      - fbclid
+      - msclkid
+      - twclid
+      - yclid
+      - igshid
+      - ttclid
+      - li_fat_id
+      # 社交/分享回传
+      - ref_src
+      - ref_url
+      - referrer
+      - share_token
+      - share_source
+      - share_medium
+      - share_plat
+      - shareId
+      - sharer
+      - from_source
+      - from_channel
+      - __twitter_impression
+      # 邮件营销
+      - mc_cid
+      - mc_eid
+      - _hsenc
+      - _hsmi
+      - oly_anon_id
+      - oly_enc_id
+      # X / Twitter 分享后缀（s=20&t=xxxx 形式）
+      - s
+      - t
+      # 其他
+      - xtor
+      - hss_channel
+      - feature
+      - si
+
+  # 例外：某些主机上上述参数有真实语义，必须保留。
+  # 优先级高于 tracking_params（PRD 7.2「来源特殊参数使用可配置保留列表」）
+  preserve_params_by_host:
+    "v2ex.com": [p]              # 分页
+    "www.v2ex.com": [p]
+    "linux.do": [page]
+    "api-docs.deepseek.com": []
+    "elsewhere.news": []
+    "github.com": [tab, q]       # 仓库 tab 与搜索语义
+    "www.youtube.com": [v, list] # v 是视频 ID，绝不能当追踪参数删掉
+    "youtu.be": []
+
+  # 短链白名单：只有这些主机才展开跳转（PRD 7.2 防 SSRF 与无限跳转）
+  short_link_hosts:
+    - t.co
+    - bit.ly
+    - tinyurl.com
+    - is.gd
+    - t.cn
+    - dwz.cn
+    - url.cn
+    - s.click.taobao.com
+
+  # 主机别名归并：不同域名指向同一实体，统一到 canonical
+  host_aliases:
+    "twitter.com": x.com
+    "mobile.twitter.com": x.com
+    "www.x.com": x.com
+    "nitter.net": x.com
+    "www.v2ex.com": v2ex.com
+    "www.github.com": github.com
+
+  # 稳定 topic ID 抽取（PRD 7.1 标识优先级第 1、2 层）
+  # 命中后生成 source_item_key，优先级高于 GUID 与 URL
+  topic_id_patterns:
+    - name: linuxdo_topic
+      host: linux.do
+      path_regex: '^/t/(?:topic/)?(?:[^/]+/)?(\d+)'
+      key_template: "linuxdo:t:{1}"
+    - name: v2ex_topic
+      host: v2ex.com
+      path_regex: '^/t/(\d+)'
+      key_template: "v2ex:t:{1}"
+    - name: telegram_message
+      host: t.me
+      path_regex: '^/(?:s/)?([A-Za-z0-9_]{4,})/(\d+)'
+      key_template: "tg:{1}:{2}"
+    - name: x_status
+      host: x.com
+      path_regex: '^/([A-Za-z0-9_]{1,15})/status/(\d+)'
+      key_template: "x:{1}:{2}"
+    - name: github_repo
+      host: github.com
+      path_regex: '^/([^/]+)/([^/]+)/?$'
+      key_template: "gh:{1}/{2}"
+
+  # 「原始事件链接」vs「发现渠道链接」（PRD 7.2 末段）
+  # 这些主机上的内容视为转述渠道，需额外抽取正文中的首个外链作为 origin_url
+  discovery_channel_hosts:
+    - t.me
+    - x.com
+    - v2ex.com
+    - linux.do
+
+# ------------------------------------------------------------
+# 2. 内容指纹与版本判定（PRD 7.3）
+# ------------------------------------------------------------
+content_fingerprint:
+  algorithm: sha256
+  # 计算语义指纹前的清洗步骤，顺序执行
+  normalize_steps:
+    - strip_html_tags
+    - collapse_whitespace
+    - strip_tracking_params_in_text   # 正文内嵌链接同样去追踪参数
+    - strip_zero_width                # ​-‍﻿
+    - normalize_fullwidth_punctuation
+    - lowercase
+  # 这些「变化」不算实质更新，不得触发重发（PRD 7.3）
+  ignore_patterns:
+    - name: view_count
+      regex: '\d+\s*(次浏览|浏览|views?|阅读|回复|replies|comments?|点赞|likes?)'
+    - name: relative_time
+      regex: '\d+\s*(分钟|小时|天|周|个?月|年)前|\d+\s*(minutes?|hours?|days?|weeks?|months?|years?)\s+ago'
+    - name: forum_footer_counts
+      description: >
+        论坛 RSS 尾注「N 个帖子 - M 位参与者」。回复数随时间增长，若不剔除
+        会改变内容指纹，被误判为实质更新并重复发送（实测 linux.do 39/39 条都有）。
+      regex: '\d+\s*个帖子\s*[-–]\s*\d+\s*位参与者'
+    - name: forum_readmore_marker
+      regex: '(阅读完整话题|阅读完整主题|阅读全文|查看全文|Read more)'
+    - name: edit_marker
+      regex: '\(编辑于[^)]*\)|\(edited\)|最后编辑[:：].*'
+    - name: pure_whitespace_or_format
+      regex: '^[\s\-=*_#>|]+$'
+
+  # 只有出现这些语义变化才允许重新入选并标记「更新」（PRD 7.3）
+  substantive_update_signals:
+    - name: version_number
+      regex: '\bv?\d+\.\d+(\.\d+)?(-[a-z0-9.]+)?\b'
+    - name: price_change
+      regex: '(?:[$￥€£]|USD|CNY|RMB|人民币)\s*\d+(?:[.,]\d+)?|\d+\s*(?:美元|元|块)'
+    - name: status_change
+      regex: '(已下线|已上线|已发布|已停止|已恢复|停服|公测|内测|GA\b|deprecated|sunset|EOL|正式版|beta|rollout)'
+    - name: policy_or_rule
+      regex: '(政策|条款|规则|资格|限制|配额|额度|限免|截止|deadline|policy|terms|quota|eligibility)'
+    - name: new_fact_marker
+      regex: '(更新[:：]|Update[:：]|补充[:：]|勘误|correction|新增)'
+
+# ------------------------------------------------------------
+# 3. 确定性信号抽取（PRD 8.1 处理顺序中「强制保留预判」的输入）
+#    这些信号由程序从正文抽取，既用于预判，也作为紧凑事实
+#    传给 Luna（PRD 15.2「已抽取代码仓库/步骤/官方链接」）。
+#    AI 不需要自己找这些东西。
+# ------------------------------------------------------------
+signals:
+  repo_url:
+    description: "可访问的代码仓库链接"
+    url_host_any:
+      - github.com
+      - gitlab.com
+      - bitbucket.org
+      - gitee.com
+      - codeberg.org
+      - sourceforge.net
+      - hf.co
+      - huggingface.co
+      - npmjs.com
+      - pypi.org
+      - crates.io
+    # 抽到后需二次校验可达性（HEAD 请求，计入 fetch 预算）
+    verify_reachable: true
+
+  code_block:
+    description: "正文含代码块或多行命令"
+    # on: text（默认）| html | both —— 声明该正则作用于哪份内容。
+    # 论坛正文里的代码块经 HTML→纯文本转换后围栏就没了，
+    # 只测纯文本会漏掉绝大多数（实测 linux.do 100 条只认出 1 条）。
+    any_of:
+      - regex: '```[\s\S]{20,}?```'
+      - regex: '<pre[\s\S]{20,}?</pre>'
+        on: html
+      - regex: '<code[^>]*>[\s\S]{20,}?</code>'
+        on: html
+      # 连续 2 行以上 shell 提示符
+      - regex: '^\s*(?:\$|#|>)\s+\S+.*(?:\n\s*(?:\$|#|>)\s+\S+.*){1,}'
+        flags: m
+
+  command_line:
+    description: "可复制执行的单条命令"
+    any_of:
+      - regex: '^\s*(?:sudo\s+)?(?:apt|apt-get|yum|dnf|pacman|brew|npm|pnpm|yarn|pip|pip3|uv|cargo|go|docker|docker\s+compose|kubectl|git|curl|wget|systemctl|ssh|make|bash|sh|python3?|node)\s+\S+'
+        flags: m
+
+  config_block:
+    description: "配置片段（yaml/json/toml/ini/env）"
+    any_of:
+      - regex: '^\s*[A-Za-z_][A-Za-z0-9_]*\s*[:=]\s*\S+(?:\n\s*[A-Za-z_][A-Za-z0-9_]*\s*[:=]\s*\S+){2,}'
+        flags: m
+      - regex: '\{[\s\S]{40,}?"[\w-]+"\s*:[\s\S]{10,}?\}'
+
+  step_markers:
+    description: "分步骤教程结构"
+    min_count: 3
+    any_of:
+      - regex: '^\s*(?:\d+[.、)]|第[一二三四五六七八九十]+步|Step\s*\d+)\s*\S+'
+        flags: m
+      - regex: '^\s*[-*+]\s+\S+'
+        flags: m
+
+  official_link:
+    description: "指向官方域名的链接（用于 C 类权益核验）"
+    url_host_in: official_domains        # 引用下方 official_domains 列表
+
+  demo_link:
+    description: "可验证的在线演示"
+    url_host_any:
+      - vercel.app
+      - netlify.app
+      - pages.dev
+      - streamlit.app
+      - hf.space
+      - replit.app
+      - railway.app
+      - fly.dev
+    or_path_regex: '/(demo|playground|preview|try)\b'
+
+  price_mention:
+    regex: '(?:[$￥€£]|USD|CNY|RMB)\s*\d+(?:[.,]\d+)?|\d+\s*(?:美元|元|块|刀)|免费|free\s+tier|试用|订阅|subscription'
+
+  aff_link:
+    description: "联盟营销/返利链接"
+    any_of:
+      - url_query_param_any: [aff, affid, aff_id, ref, refid, referral, referrer, inviter, invite, invitecode, invite_code, r, promo, promocode, coupon, cid, agent]
+      - url_host_any:
+          - dlj.tw
+          - u.jd.com
+          - s.click.taobao.com
+          - s.click.tmall.com
+          - union-click.jd.com
+          - p.pinduoduo.com
+          - shareasale.com
+          - awin1.com
+          - impact.com
+          - partnerize.com
+      - regex: '(返利|佣金|拉新|推广奖励|邀请奖励|分成|赚取积分)'
+
+  invite_code:
+    any_of:
+      - regex: '(?:邀请码|邀请碼|invite\s*code|referral\s*code|promo\s*code|优惠码|兑换码|激活码)\s*[:：是为]?\s*[A-Za-z0-9_-]{4,32}'
+      - regex: '(?:填写|使用|输入)\s*(?:我的)?\s*(?:邀请码|优惠码|推荐码)'
+
+  external_link:
+    description: "正文含指向站外的绝对 HTTPS 链接"
+    min_count: 1
+    exclude_hosts_same_as_source: true    # 站内链接不计数
+
+  install_hint:
+    description: "安装或使用说明（A 类在无仓库链接时的替代证据）"
+    any_of:
+      - regex: '(安装|部署|使用方法|快速开始|上手|installation|getting\s+started|quick\s*start|usage|how\s+to\s+use)'
+        flags: i
+      - regex: '(clone|install|运行以下|执行以下|依赖要求|requirements?\.txt|package\.json|docker-compose\.ya?ml)'
+        flags: i
+
+  policy_mention:
+    description: "服务政策/资格规则/功能变化（C 类判定用）"
+    any_of:
+      - regex: '(政策|条款|规则|资格|门槛|配额|额度|限制|白名单|灰度|上线|下线|停止支持|迁移公告)'
+        flags: i
+      - regex: '(policy|terms|eligibility|quota|deprecat|sunset|rollout|availability)'
+        flags: i
+
+# ------------------------------------------------------------
+# 4. 官方域名白名单（PRD 8.5 / 15.4 权益与重大新闻核验）
+# ------------------------------------------------------------
+official_domains:
+  ai_vendors:
+    - openai.com
+    - developers.openai.com
+    - platform.openai.com
+    - help.openai.com
+    - anthropic.com
+    - claude.com
+    - docs.claude.com
+    - support.anthropic.com
+    - deepmind.google
+    - ai.google.dev
+    - deepseek.com
+    - api-docs.deepseek.com
+    - x.ai
+    - mistral.ai
+    - meta.com
+  platforms:
+    - github.com
+    - github.blog
+    - docs.github.com
+    - gitlab.com
+    - cloudflare.com
+    - blog.cloudflare.com
+    - vercel.com
+    - aws.amazon.com
+    - azure.microsoft.com
+    - cloud.google.com
+    - telegram.org
+    - core.telegram.org
+    - apple.com
+    - developer.apple.com
+    - microsoft.com
+    - google.com
+    - tencent.com
+    - weixin.qq.com
+    - mp.weixin.qq.com
+  news_of_record:
+    - reuters.com
+    - apnews.com
+    - bbc.com
+    - bbc.co.uk
+    - bloomberg.com
+    - ft.com
+    - wsj.com
+    - nytimes.com
+    - theverge.com
+    - arstechnica.com
+
+# ------------------------------------------------------------
+# 5. 确定性过滤（PRD 8.3）
+#    命中即过滤，不调用 AI。必须保存 rule_id 供审计。
+#    注意：所有规则对「强制保留候选」的作用见 8.2 的 applies_to。
+# ------------------------------------------------------------
+deterministic_filters:
+  # 无 condition 的规则由代码提供上下文判定（见 filters.ts CONTEXTUAL）——
+  # 它们依赖数据库状态，无法用文本条件表达。
+  - id: DF-001
+    name: already_sent_no_update
+    description: "canonical key 已发送且语义指纹未变（PRD 7.3）"
+    applies_to: all               # 强制保留候选同样适用——防重复是硬约束
+    action: filter
+
+  - id: DF-002
+    name: empty_title_or_body
+    description: "标题或清洗后正文为空"
+    applies_to: all
+    condition:
+      any_of:
+        - title_length_lt: 2
+        # 正文抓取失败时，信息完整的长标题仍可进入 AI/人工复核。
+        # 只有正文和标题都过短才视为空内容。
+        - all_of:
+            - clean_text_length_lt: 10
+            - title_length_lt: 8
+    action: filter
+
+  - id: DF-003
+    name: duplicate_by_tracking_params
+    description: "去除追踪参数后与已有条目 canonical_url 相同"
+    applies_to: all
+    action: filter
+
+  - id: DF-047
+    name: already_covered_same_day
+    description: "同一台北自然日的较早窗口已经覆盖同一事件"
+    applies_to: all
+    action: filter
+
+  - id: DF-010
+    name: aff_recruitment
+    description: "明显 AFF 拉新 / 邀请码拉人，且无实质操作内容"
+    applies_to: normal_only       # 不直接淘汰强制保留候选，交由 D 类规则判定
+    condition:
+      all_of:
+        - signal: aff_link
+        - not_signal: code_block
+        - not_signal: step_markers
+    action: filter
+
+  - id: DF-011
+    name: coupon_without_content
+    description: "只有优惠码没有操作内容（PRD 8.3）"
+    applies_to: normal_only
+    condition:
+      all_of:
+        - signal: invite_code
+        - not_signal: step_markers
+        - clean_text_length_lt: 200
+    action: filter
+
+  - id: DF-020
+    name: low_information_chat
+    description: "明确的灌水闲聊：短、无链接、无代码、无步骤且含灌水语气（正例校准）"
+    applies_to: normal_only
+    condition:
+      all_of:
+        - clean_text_length_lt: 120
+        - not_signal: repo_url
+        - not_signal: code_block
+        - not_signal: command_line
+        - not_signal: step_markers
+        - external_link_count_lt: 1
+        # 仅“篇幅短”不能证明没有信息价值：支付失败实测、反诈提醒、
+        # 短新闻都可能只有几十字。必须再命中明确灌水语气才硬过滤。
+        - regex: '(哈哈哈|笑死|好好玩啊|水一贴|水帖|纯水|灌水|顶一下|路过|无聊发个帖|随便聊聊)'
+    action: filter
+
+  - id: DF-021
+    name: unknown_credential_leak
+    description: "来源不明的密钥/token，安全与合规风险（PRD 8.3）"
+    applies_to: all
+    condition:
+      any_of:
+        - regex: '\b(?:sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35})\b'
+    action: filter
+    alert: true                   # 同时告警：可能是他人泄露的凭证
+
+  # 【人工反馈，2026-09-07】面向残障、语言/沟通障碍等群体的辅助技术
+  # 项目不进入日报。此类条目通常因仓库链接命中 A 类强制保留，所以规则
+  # 必须 applies_to: all。要求同时出现目标群体/辅助技术词和软件项目词，
+  # 避免把新闻中偶然出现的“无障碍电梯”等一般设施描述误判为项目。
+  - id: DF-048
+    name: accessibility_assistive_project
+    description: "面向残障或沟通障碍群体的无障碍辅助软件项目"
+    applies_to: all
+    condition:
+      all_of:
+        - regex: '(无障碍|残障|残疾|语言障碍|言语障碍|沟通障碍|失语症|视障|听障|盲人|聋人|辅助沟通|替代沟通|AAC\b|accessibility|assistive technolog|augmentative (?:and|&) alternative communication|disabilit|disabled|speech impair|visually impair|hearing impair|screen reader)'
+          flags: i
+        - any_of:
+            - title_regex: '(开源|项目|应用|软件|工具|平台|系统|网站|插件|Web\b|App\b|project|software|tool|platform|system|application|framework|GitHub|repository|语音合成|speech synthesis)'
+              flags: i
+            - signal: repo_url
+    action: filter
+
+  # 【人工反馈落地，2026-08-23】用户明确指出应过滤的三类：
+  #   RelayFor 公益模型服务调整上游计价与错误补偿
+  #   Seedance 图生视频公益站开放限时测试
+  #   KRILL 中转站退款与隐私争议暴露第三方 API 服务风险
+  # 归纳：论坛「公益站/中转站」的运营公告与用户争议，属于小圈子
+  # 内部事务 —— 对读者无公共价值，且争议帖多为情绪性爆料。
+  #
+  # 注意与 PRD 8.2 C 类的边界：C 类保护的是「可由官方帮助页、公告、
+  # 价格页核验的产品权益」，指的是 OpenAI/Anthropic 这类**服务商官方**
+  # 的政策与权益。第三方转售站的自设规则不是官方权益，不受 C 类保护。
+  - id: DF-040
+    name: relay_station_operations
+    description: "第三方公益站/中转站的运营公告、计价调整、内测招募"
+    applies_to: normal_only
+    condition:
+      any_of:
+        - all_of:
+            - regex: '(公益站|中转站|反代站|镜像站|号池)'
+            - regex: '(通知|公告|调整|补偿|内测|开放|限时|上新|额度发放|计价|退款)'
+            # 长篇行业文章可能在正文举例同时出现“中转站”和“开放”，
+            # 站点运营属性必须也能从标题看出，不能只靠全文词语共现。
+            - title_regex: '(公益站|中转站|反代站|镜像站|号池|通知|公告|调整|补偿|内测|开放|限时|上新|额度发放|计价|退款)'
+            - not_signal: official_link      # 有服务商官方链接的另当别论
+        # 中转站推广常不自称「中转站」，但「倍率」是这一类的标志性说法，
+        # 配合拉群/送额度即可判定（实测 c81 只因缺站点词而漏判）
+        - all_of:
+            - regex: '(倍率|无降智|不降智|首字|缓存命中|自用实时监测)'
+            - regex: '(送|欢迎|加群|访问地址|新用户|测试|欢迎佬)'
+            # 行业长文也可能同时谈到“倍率”和“测试”；推广特征必须出现在标题。
+            - title_regex: '(倍率|无降智|不降智|首字|缓存命中|自用实时监测)'
+            - not_signal: official_link
+    action: filter
+
+  - id: DF-041
+    name: community_dispute
+    description: "个人恩怨、站点争议、爆料对骂类帖子"
+    applies_to: normal_only
+    condition:
+      any_of:
+        - regex: '(恶臭曝光|开盒|破防|狂骂|撕逼|互喷|挂人|避雷贴)'
+        - all_of:
+            - regex: '(争议|纠纷|投诉|封号|跑路|骗子|割韭菜)'
+            - regex: '(中转站|公益站|某站|该站|站长)'
+            # “纠纷案件”等法律新闻的正文可能偶然出现“该站”；争议对象
+            # 必须从标题就能确定是第三方站点，不能只靠全文跨段共现。
+            - title_regex: '(中转站|公益站|反代站|镜像站|号池|某站|站长)'
+    action: filter
+
+  # 【人工反馈，2026-08-24】以下三类明确过滤。
+  #
+  # 关键边界：政策**事实**新闻必须保留（用户模板里明确收录了
+  # 「加拿大对美加征对等关税」「澳大利亚首例哺乳动物 H5 感染」），
+  # 要过滤的是政治**观点与论战**。区分依据是「有无可核验的官方来源」：
+  # 官方公告有出处、有生效日期、有具体条款；意识形态论断只有立场。
+  # 因此 DF-042 要求同时满足「转发的观点体裁」与「无官方链接」。
+  - id: DF-042
+    name: political_opinion
+    description: "转发的政治/意识形态论断，无官方来源可核验"
+    applies_to: normal_only
+    condition:
+      all_of:
+        - regex: '^\s*(RT|转发|轉發)\b|^\s*RT\s'
+        - any_of:
+            - regex: '(?:Bolshevik|communis|fascis|genocide|mass murder|regime|ideolog|racis|discriminat|woke|leftis|right-wing)'
+            - regex: '(共产|法西斯|种族|意识形态|政权|独裁|专制|极权|白左|政治正确|大屠杀)'
+            - regex: '(superhuman robot armies|world war|civil war|invasion)'
+        - not_signal: official_link
+    action: filter
+
+  - id: DF-043
+    name: celebrity_gossip
+    description: "明星/娱乐圈争议与八卦"
+    applies_to: normal_only
+    condition:
+      all_of:
+        - regex: '(男团|女团|偶像|艺人|明星|演唱会|经纪公司|粉丝|选秀|综艺|剧组)'
+        - regex: '(抄袭|争议|塌房|翻车|开撕|回应|道歉|立案|举报|绯闻|恋情)'
+        - not_signal: repo_url
+    action: filter
+
+  - id: DF-044
+    name: account_trading
+    description: "账号买卖、等级号倒卖、代充代练"
+    applies_to: normal_only
+    condition:
+      any_of:
+        - all_of:
+            - regex: '(二级号|等级号|老号|小号|成品号|账号)'
+            - regex: '(出售|收购|多少钱|价格|贵吗|闲鱼|转让|代购|回收)'
+        - regex: '(代充|代练|号商|养号)'
+    action: filter
+
+  # 【人工反馈，2026-09-01】第三方平台的拼团、抽奖、现金红包和月卡赠送
+  # 即使正文夹带“架构重构”等技术描述，也以营销活动为主，不得因为误命中
+  # B 类预判而绕过过滤。标题须同时出现活动词和商业服务词，避免误伤新闻。
+  - id: DF-045
+    name: community_giveaway_promotion
+    description: "社区第三方平台的拼团、抽奖、红包或月卡促销"
+    applies_to: all
+    condition:
+      all_of:
+        - title_regex: '(抽奖|现金红包|拼团|月卡(?:套餐)?|充值赠送|返现)'
+        - title_regex: '(倍率|号池|中转|公益站|套餐|额度|优惠码|红包|拼团|Token[- ]?X|Krill)'
+        - not_signal: repo_url
+        - not_signal: official_link
+    action: filter
+
+  - id: DF-046
+    name: personal_community_badge
+    description: "社区用户的签到、站龄或个人徽章成就"
+    applies_to: normal_only
+    condition:
+      all_of:
+        - title_regex: '(徽章|勋章|连续签到|全年不落)'
+        - title_regex: '(终于|拿到|获得|入站|站龄|签到|打卡|纯手刷)'
+        - not_signal: repo_url
+        - not_signal: official_link
+    action: filter
+
+  - id: DF-030
+    name: pure_repost_no_addition
+    description: "整篇为转载且无任何新增信息，原文已收录"
+    applies_to: normal_only
+    action: filter
+
+# 【反向保护】以下理由单独出现时，一律不得作为过滤依据（PRD 8.3 末段）
+# 代码层面：filter_reason 命中这些模式时抛错，进人工审计而非静默过滤
+never_filter_on:
+  - 开源推广
+  - 公益推广
+  - 项目推广
+  - 自我推广
+  - star 数少
+  - 作者不知名
+  - 无演示效果
+  - 商业产品
+  - 商业属性
+  - 涉及付费
+  - 涉及折扣
+  - 涉及免费权益
+  - 羊毛
+  - 篇幅短
+  - 热度低
+  - 同生态关键词重复
+
+# AI 判定的反向保护。与上面的确定性规则理由分开，避免影响 DF-010 等
+# 已由程序精确求值的规则。这些片段来自人工正例的真实误判理由：它们
+# 可以降低排序分或写成来源局限，但单独出现时不能把条目判为 filter。
+ai_filter_guard:
+  invalid_reason_fragments:
+    - 个人主观
+    - 纯主观
+    - 个人观察
+    - 个人经历
+    - 个人吐槽
+    - 无事实信息
+    - 无可操作内容
+    - 无新闻或实用价值
+    - 无独立资讯价值
+    - 不具独立资讯价值
+    - 无开源项目
+    - 无可复现技术内容
+    - 无深度分析
+    - 来源为非官方
+    - 无官方链接
+    - 缺少官方来源
+    - 无法核实
+    - 无法核验证据
+    - 无其他来源
+    - 同主题无其他来源
+    - 政治敏感
+    - 不宜收录
+    - 欺诈
+    - 滥用
+    - 违反服务条款
+    - 低信息量
+    # 2026-08-27 人工正例：这些是来源局限或体裁描述，不是过滤依据。
+    - 仅为活动预告
+    - 尚未正式发布
+    - 仅为传闻
+    - 缺少官方证实
+    - 销量榜单
+    - 仅为快讯
+    - 日常资讯汇总
+    - 非技术深度内容
+    - 消息内容简短
+    - 正文仅为一句话
+    - 低信息密度
+    - 缺乏具体信息
+    - 缺乏任何实质性事实细节
+    - 缺乏具体的技术细节
+  l1_action: escalate
+  l2_action: promote
+  l3_action: normal
+
+# ------------------------------------------------------------
+# 6. 强制保留 A–D（PRD 8.2）—— 本系统的核心不漏项机制
+#
+#    两段式：
+#    (1) 程序预判 prescreen —— 用 signals 判断「有没有硬证据」
+#    (2) AI 语义确认 ai_confirm —— 判断「是不是那个类别」
+#
+#    prescreen 命中即进入强制保留通道，不参与 8–12 条篇幅淘汰
+#    （PRD 8.4）。Luna 若判为 filter，必须升级（见 escalation）。
+# ------------------------------------------------------------
+mandatory_retention:
+  applies_to_sources: [linuxdo, v2ex]     # PRD 8.2 限定这两个来源
+  bypass_length_cap: true                  # 不参与 8–12 条淘汰（PRD 8.4）
+  still_subject_to: [DF-001, DF-002, DF-003, DF-021, DF-045]   # 仍受安全、重复与明确营销过滤
+
+  classes:
+    - class: A
+      name: 可复用项目
+      description: >
+        提供真实可访问的代码仓库、源代码、安装/使用方法或可验证演示中的至少一项，
+        且涉及 Skill、Agent、AI 工具、开发工具、自托管、自动化、数据分析、
+        金融分析或其他可复用项目。
+      prescreen:
+        any_of:
+          - signal: repo_url
+          - signal: demo_link
+          - all_of: [code_block, install_hint]
+      topic_scope:                          # 供 AI 判定的领域关键词，非硬过滤
+        - Skill
+        - Agent
+        - MCP
+        - AI 工具
+        - 开发工具
+        - 自托管
+        - self-host
+        - 自动化
+        - 数据分析
+        - 金融分析
+        - 爬虫
+        - 脚本
+        - 插件
+        - CLI
+        - API
+        - 模型部署
+      ai_confirm: true
+
+    - class: B
+      name: 可复现实践
+      description: >
+        提供可操作教程、配置步骤、架构解析、故障复盘或实测方法，正文含足以复现
+        或应用的命令、配置、流程、技术原理或验证证据，即使没有独立仓库。
+      prescreen:
+        any_of:
+          - signal: code_block
+          - signal: command_line
+          - signal: config_block
+          - all_of: [step_markers, external_link]
+      topic_scope:
+        - 教程
+        - 配置
+        - 部署
+        - 架构
+        - 复盘
+        - 实测
+        - 踩坑
+        - 排障
+        - 优化
+        - 迁移
+        - 对比测试
+      ai_confirm: true
+
+    - class: C
+      name: 产品权益
+      description: >
+        提供可由官方帮助页、公告、价格页或产品页面核验的产品权益、资格规则、
+        功能变化或服务政策。不得仅因涉及折扣、免费权益或订阅关系而按「羊毛」过滤。
+      prescreen:
+        all_of:
+          - signal: official_link              # 必须有官方可核验入口
+          - any_of: [price_mention, policy_mention]
+      # C 类必须实际打开官方页核验（PRD 15.4 升级条件之一）
+      require_official_verification: true
+      ai_confirm: true
+
+    - class: D
+      name: 省钱教程
+      description: >
+        步骤完整、无 AFF/返利链接和邀请码、具有真实可访问入口。即使涉及跨区账号、
+        礼品卡、挽留优惠、充值或促销，也应保留。
+      prescreen:
+        all_of:
+          - signal: step_markers
+          - signal: external_link
+          - not_signal: aff_link               # D 类硬性排除 AFF
+          - not_signal: invite_code            # D 类硬性排除邀请码
+      # D 类入选后，摘要必须包含以下风险说明，缺失即视为生成失败（PRD 8.2 D 段）
+      required_disclosures:
+        - 价格可能失效
+        - 账号地区限制
+        - 支付条款
+        - 封号或退款风险
+      # 明令禁止：不得鼓励规避平台规则
+      forbidden_framing:
+        - 规避风控
+        - 绕过限制
+        - 破解
+        - 白嫖到底
+      ai_confirm: true
+
+  # 证据不足（原帖抓取失败、只有 RSS 摘要）时的处理
+  # 关键：不得把「没看到证据」当成「没有证据」而过滤（PRD 8.3 反向保护）
+  on_insufficient_evidence:
+    action: escalate_or_manual     # 不过滤，转升级或人工
+    never_filter: true
+
+  # 强制保留候选最终被过滤时的处理（PRD 9.3 / 20.3）
+  on_final_filter:
+    require_human_reason: true      # 必须有人工原因，否则告警
+    show_in_email_audit: true       # 邮件审计区逐条显示标题+链接+原因
+    alert: true
+
+# ------------------------------------------------------------
+# 7. 普通内容排序（PRD 8.4）
+# ------------------------------------------------------------
+ranking:
+  scale: [0, 100]
+  weights:                      # 合计 100
+    public_importance: 25       # 公共重要性
+    information_gain: 20        # 信息增量
+    verifiability: 20           # 可验证性
+    actionability: 15           # 可操作性
+    source_credibility: 10      # 来源可信度
+    timeliness: 10              # 时效性
+  target_item_count: [8, 12]    # 常规收录区间（PRD 9.1）
+  # 正例校准前阈值为 55，但真实候选最高仅约 46，导致所有 normal 候选
+  # 都被清空。25 仍保留质量底线；12 条上限继续防止低分内容凑数。
+  min_score_to_include: 25
+  core_highlights_count: [5, 8] # 核心要点条数（PRD 9.1）
+
+# ------------------------------------------------------------
+# 8. 高风险领域（PRD 8.5）
+# ------------------------------------------------------------
+high_risk:
+  # 【实测校准，2026-08-23】
+  # 原先用裸子串匹配，中文里短词极易被更长的词包含，实测 40 条候选中
+  # 7 条命中高风险规则、其中 6 条是误触发：
+  #   「量化」← 轻量化控制    「加密」← HTTPS 加密    「币」← 港币
+  #   「试验」← 试验品阶段
+  # 误触发会把大量普通内容送去更贵的复核模型。
+  # 因此拆成两类：
+  #   keywords         —— 语义明确、不易被包含的长词，仍用子串匹配
+  #   guarded_keywords —— 易误伤的短词，要求前后不出现 exclude 里的字
+  domains:
+    - id: HR-medical
+      keywords: [医疗, 临床, 药物, 疗效, 诊断, 治疗, 疫苗, 副作用, FDA, 适应症]
+      guarded_keywords:
+        - { term: 试验, exclude_after: [品, 性, 版, 田] }
+      disclosure: "涉及医疗信息，需由专业人士独立核验，不构成医疗建议。"
+    - id: HR-legal
+      # 裸“合规”会误伤数据治理/产业报告；只保留确有法律后果的组合。
+      keywords: [法律, 诉讼, 判决, 监管, 处罚, 立法, 条例, GDPR, 反垄断,
+                 合规处罚, 合规风险, 合规要求, 法律合规, 监管合规]
+      disclosure: "涉及法律信息，具体适用需咨询专业人士，不构成法律建议。"
+    - id: HR-finance
+      # 裸“基金”会命中机构名称（如 SEE Fund/无限基金），改为金融语义组合。
+      keywords: [基金净值, 基金收益, 基金持仓, 基金产品, 公募基金, 私募基金,
+                 股票, 收益率, 投资回报, 融资, 估值, 代币, 交易所, 套利, 回测,
+                 加密货币, 加密资产, 虚拟货币, 数字货币, 量化交易, 量化策略, 量化投资]
+      guarded_keywords:
+        # 「币」前面若是港/日/韩/人民等币种名，或后面是「种」，多为普通语境
+        - { term: 币, exclude_before: [港, 日, 韩, 台, 美, 欧, 泰, 民, 硬, 纸],
+                      exclude_after: [种, 值] }
+        # 「加密」不设守卫 —— 它单独出现时几乎总是安全术语（加密连接、
+        # 加密存储、加密的流量），金融语境必然说「加密货币/加密资产」，
+        # 而那些长词已在上面的 keywords 里。与其枚举排除词，不如不匹配裸词。
+        # 「量化」后接技术名词时指工程优化，不是金融量化
+        - { term: 量化, exclude_before: [轻], exclude_after: [控制, 模型, 压缩, 部署, 版本] }
+        - { term: 投资, exclude_after: [人] }
+      disclosure: "涉及金融信息，数据、方法、收益与合规性需独立核验，不构成投资建议。"
+
+  rules:
+    never_state_as_fact: true       # 不得写成确定结论
+    require_disclosure_in_summary: true   # 免责说明必须融入摘要正文（PRD 9.2）
+    # 金融/量化开源工具可保留，但必须带说明（PRD 8.5 第二条）
+    allow_opensource_finance_tools: true
+    # 重大新闻必须优先官方来源（PRD 8.5 第三条）
+    major_news_requires_official_source: true
+    # 只有社区/频道转述时的强制措辞
+    unverified_phrasing: "该消息目前仅见于社区/频道转述，尚未独立核实。"
+    # 需要第二来源或升级高级模型（PRD 8.5 第四条）
+    require_second_source:
+      - 服务商争议
+      - 模型真伪
+      - 账号封禁
+      - 数据泄露
+      - 裁员
+      - 收购
+
+# 重大新闻类型（PRD 15.4 升级条件、8.5 核验要求）
+major_news_types:
+  - 重大事故
+  - 政策变更
+  - 监管处罚
+  - 芯片出口管制
+  - 临床试验结果
+  - 重大安全漏洞
+  - 大规模服务中断
+  - 公司收购合并
+  - 高管变动
+  - 模型重大发布
+
+# ------------------------------------------------------------
+# 9. Elsewhere News 专项（PRD 8.6）
+# ------------------------------------------------------------
+source_specific:
+  # ---- LINUX DO / V2EX 全文抓取门 ----
+  #
+  # 【已修正的早期误判】最初看到 39/39 条都带「阅读完整话题」标记，
+  # 加上净正文中位数仅 240 字，据此断定「RSS 正文被截断」。这是错的：
+  # 该标记是指向讨论区回复的链接，不代表首帖正文被切。抓到全文后实测
+  # 对比（5 条样本），摘要已覆盖首帖的 57%–97%，中位数约 88%，且全文
+  # 开头全部包含在摘要中。240 字是热帖首帖的真实长度，不是截断产物。
+  #
+  # 【因此的真实结论】
+  #   · 摘要跑 A–D 预判 39 条只命中 3 条，这个低命中率是真实的 ——
+  #     多数热帖确实是讨论帖，首帖没有 A–D 硬证据，不是「看不见证据」。
+  #   · 全文抓取仍有价值，但价值集中在长帖：A 类的 MeloX 帖摘要仅覆盖
+  #     57%（920→1611 字），而闲聊帖覆盖 97%。hint 关键词门正好筛出前者。
+  #   · 实测 17 次全文抓取中，A–D 预判结果 0 次改变。全文的收益是
+  #     更精确的时间戳、干净的 HTML 与更完整的长帖正文，不是召回率。
+  #   · 若召回率仍不达 PRD 24.1 的 ≥98%，下一步要查的是「证据在回复区
+  #     而非首帖」这个假设，而不是继续加大首帖抓取。
+  #
+  # Elsewhere 的情况完全不同：摘要 22–60 字 vs 全文 2000–3400 字
+  # （最高 155x），全文抓取是必需的，且 PRD 8.6 本就强制要求。
+  forum_fulltext:
+    applies_to_sources: [linuxdo, v2ex, jike]
+    truncation_markers:
+      - 阅读完整话题
+      - 阅读完整主题
+      - 阅读全文
+      - 查看全文
+    # 抓取时机：按 item_version 首见时抓一次，不是每个采集周期都抓。
+    # 39 个热榜话题、每天新增约 20–40 条 → 每天仅 20–40 次额外请求。
+    fetch_policy: once_per_item_version
+    # 便宜门：命中任一条件才打开原帖，避免对闲聊帖做无谓请求
+    fetch_gate:
+      any_of:
+        - excerpt_truncated_and_any_signal   # 摘要已露出信号，全文大概率更多
+        - title_matches_hint
+        - excerpt_matches_hint
+    # 标题/摘要命中即视为「可能是 A–D」，宁可多抓不可漏判
+    hint_keywords:
+      - 开源
+      - 项目
+      - 工具
+      - 教程
+      - 部署
+      - 搭建
+      - 配置
+      - 脚本
+      - 插件
+      - API
+      - Agent
+      - Skill
+      - MCP
+      - 自托管
+      - 免费
+      - 额度
+      - 号池
+      - 渠道
+      - 权益
+      - 优惠
+      - 攻略
+      - 指南
+      - 实测
+      - 对比
+      - 复盘
+      - 踩坑
+      - 排障
+      - 分享
+      - 教学
+    # 单轮配额按来源分设（实测 linux.do 会被 Cloudflare 限流）
+    max_fetch_per_run: 25            # 默认值
+    max_fetch_per_run_by_source:
+      linuxdo: 3                     # 15s 抖动间隔 × 3 条；降低 Cloudflare 触发概率
+      v2ex: 10
+      jike: 12                     # 日报 4 条镇小报 + 资讯快读，原帖公开可抓
+      elsewhere: 20                  # 未见限流，可快些消化积压
+    on_fetch_fail: use_excerpt_and_flag   # 降级用摘要，但标记证据不足、禁止据此过滤强制保留候选
+
+  elsewhere:
+    # RSS 只负责发现，必须二次打开原文（PRD 8.6 / FR-014）
+    require_full_article_fetch: true
+    # 二次抓取失败时的行为：绝不用 RSS 摘要生成结论
+    on_fetch_fail: mark_source_error   # 不得降级为「无更新」
+    min_article_chars: 800
+
+    prefer:
+      - 原创观点
+      - 事实证据
+      - 行业洞察
+      - 技术解析
+      - 深度访谈
+      - 创业复盘
+      - 认知提升
+    demote_or_filter:
+      - 机构奖项公告
+      - 被投企业宣传
+      - 融资通稿
+      - 活动流水账
+      - 缺乏独立分析的公关稿
+
+    # 作者为机构时必须披露立场（PRD 8.6 第二段）
+    institutional_author_patterns:
+      - 资本
+      - 创投
+      - Capital
+      - Ventures
+      - VC
+      - 基金
+      - 研究院
+      - 实验室
+    institutional_disclosure: "作者为机构账号，内容可能带有机构立场。"
+
+    # feed 有更新但无文章达标时的状态（PRD 8.6 末句）
+    no_qualifying_article_status: filtered   # 不是 no_update
+
+# ------------------------------------------------------------
+# 10. 跨来源事件合并（PRD 7.4）
+#     同生态/同关键词 ≠ 重复。只有同一事件才合并。
+# ------------------------------------------------------------
+clustering:
+  # 人工确认的同事件别名：模型即使因数字更新生成不同 event_key，仍应合并。
+  event_aliases:
+    # OpenAI 官方文章与其 X 账号转述经常在不同采集窗口到达；标题和
+    # event_key 会因语言/措辞不同而漂移，但以下组合明确指向同一发布事件。
+    - key: openai-chatgpt-financial-services-2026-09
+      require_all: [ChatGPT]
+      require_any: [金融服务, financial services]
+      force_section: ai_tech
+    - key: openai-gpt-live-1-api-2026-09
+      require_all: [GPT-Live-1]
+      require_any: [API, 语音, voice]
+      force_section: ai_tech
+    - key: nepal-tibet-border-flood-2026-08
+      require_all: [尼泊尔, 西藏]
+      require_any: [洪灾, 洪水, 山洪, 泥石流]
+    - key: codex-quota-reset-2026-08
+      require_all: [Codex]
+      require_any: [重置, 额度用完, 5 小时使用限制]
+    - key: apple-ceo-succession-2026-09
+      require_all: [库克]
+      require_any: [卸任, CEO, 首席执行官, 特努斯, 接棒, 交接]
+      force_section: ai_tech
+    - key: apple-ceo-succession-2026-09
+      require_all: [Tim Cook]
+      require_any: [CEO, chief executive, last day]
+      force_section: ai_tech
+    # 上游芯片涨价与同日手机厂商集中调价属于同一价格调整事件链；一期内合并，
+    # 若早先窗口已经出现，后续窗口不再重复推送。
+    - key: mobile-device-price-increase-2026-09
+      require_all: [高通]
+      require_any: [涨价, 提价, 价格, 成本]
+      force_section: ai_tech
+    - key: mobile-device-price-increase-2026-09
+      require_all: [手机]
+      require_any: [涨价, 调价, 上调售价, 价格调整]
+      force_section: ai_tech
+    - key: mobile-device-price-increase-2026-09
+      require_all: [华为, 小米]
+      require_any: [涨价, 调价, 上调售价, 售价调整]
+      force_section: ai_tech
+  # 以下类型即使关键词高度重合，也必须分别评估，不得合并
+  never_merge_types:
+    - 架构教程
+    - 插件
+    - 独立工具
+    - 版本更新
+    - 实测报告
+    - 产品权益
+    - 省钱教程
+  # 合并的充分条件（需同时满足）
+  merge_requires:
+    - same_event_key            # Luna 返回的 event_key 一致
+    - same_or_equivalent_subject
+    - overlapping_facts         # 摘要信息实质相同
+  # 合并后保留最佳原始来源，并列出其他渠道贡献（PRD 7.4 末句）
+  keep_best_origin: true
+  list_contributions: true
+  # 来源可信度排序，用于挑选 canonical 来源
+  origin_preference:
+    - official_domain           # 官方页面永远优先
+    - news_of_record
+    - elsewhere
+    - linuxdo
+    - v2ex
+    - x
+    - telegram
+    - jike
+
+# ------------------------------------------------------------
+# 11. AI 自动升级规则（PRD 15.4）
+#     L1 Luna → L2 Terra → L3 Sol
+# ------------------------------------------------------------
+escalation:
+  l1_to_l2:
+    any_of:
+      - id: ESC-001
+        name: low_confidence
+        condition: "confidence < 0.75"
+      - id: ESC-002
+        name: high_risk_domain
+        condition: "high_risk.domains 任一命中"
+      - id: ESC-003
+        name: major_news
+        condition: "major_news_types 任一命中"
+      - id: ESC-004
+        name: source_conflict
+        description: "两个来源对关键事实、时间、数字或状态冲突"
+      - id: ESC-005
+        name: mandatory_retention_filtered
+        description: "强制保留预判命中，但 Luna 判为 filter —— 必须复核"
+        priority: highest       # 这条是防漏项的最后一道闸
+      - id: ESC-006
+        name: elsewhere_long_form
+        condition: "source == elsewhere AND clean_text_length > 6000"
+      - id: ESC-007
+        name: official_verification_needed
+        description: "C 类权益/价格/产品政策需打开官方页核验"
+      - id: ESC-008
+        name: content_too_long
+        condition: "clean_text_length > 20000"
+
+  l2_to_l3:
+    any_of:
+      - id: ESC-101
+        name: still_conflicting
+        description: "Terra 处理后关键事实仍存冲突"
+      - id: ESC-102
+        name: critical_domain
+        condition: "HR-medical OR HR-legal OR HR-finance 且涉及具体数字或结论"
+      - id: ESC-103
+        name: high_dispute_source
+        description: "高争议来源或需复杂综合判断"
+
+  # L3 之后不再自动升级，失败转人工（PRD 15.1 表格）
+  l3_on_failure: manual_audit
+
+# ------------------------------------------------------------
+# 12. AI 输入最小化与预算（PRD 15.2 / 15.5）
+# ------------------------------------------------------------
+ai:
+  input_minimization:
+    body_chars_min: 4000
+    body_chars_max: 8000        # 单候选正文上限（PRD 15.2）
+    # 明令禁止塞进 Prompt 的内容（PRD 15.2 末段）
+    never_send:
+      - 16 个来源完整清单
+      - 全部历史邮件
+      - 长篇自然语言规则
+      - 后台 Cookie / 凭证
+      - 服务器日志
+    # 稳定规则放前部以命中 Prompt Caching（PRD 15.2）
+    cache_stable_prefix: true
+    # 相同内容指纹已有合格结构化摘要时直接复用，不再调模型
+    reuse_by_content_hash: true
+
+  schema_retry:
+    max_retries: 1              # PRD 15.3：最多修复重试一次
+    retry_strategy: shorten_body
+    on_final_failure: manual_audit   # 不得静默丢弃（FR-044）
+
+  budget_per_run:
+    # 【实测校准，2026-08-23，DeepSeek deepseek-v4-flash】
+    # 用真实候选实测：8 条一批输入 6252、输出 3956 token（每条约 495，
+    # 含模型推理过程）。注意别拿短填充内容测 —— 那种只需 105/条，
+    # 会严重低估。80 条候选按此推算输出约 40000。
+    # 输入侧每条约 780，80 条约 62000，高于 PRD 15.5 的 50000 估值。
+    luna:
+      input_tokens_max: 70000
+      output_tokens_max: 45000
+    # 【实测校准】PRD 15.5 给的 max_items 与 input_tokens_max 不自洽：
+    # 复核逐条送全文（body_chars_max 8000 ≈ 3600 token）+ 提示词 + siblings，
+    # 每条约 5000 输入 token，5 条需 25000 —— 恰好撑满，实际只跑了 2 条
+    # 就触发熔断。名额是主约束、token 是兜底，故把 token 放宽到名额的 1.6 倍。
+    # 【2026-08-24 调整】原名额 5/2 是主要的转人工来源：08-24 晚报
+    # 待复核 16 条，L2 处理 5 条全部成功、模型主动转人工 0 条，
+    # 其余 11 条纯粹是名额用尽。也就是说人工介入不是因为模型判不了，
+    # 而是我们没让它判。名额提到覆盖实际待复核量。
+    # 单条 L2 实测约 58 秒，故同时把复核改为并发 3 路（见 review.ts）。
+    terra:
+      max_items: 24
+      input_tokens_max: 180000
+      output_tokens_max: 70000
+    sol:
+      max_items: 8
+      input_tokens_max: 70000
+      output_tokens_max: 28000
+    # 同时在途的复核请求数。并发 1 = 旧的顺序行为。
+    review_concurrency: 3
+
+  # 预算超限行为（PRD 15.5）
+  on_soft_budget_exceeded:
+    continue_for: [mandatory_retention, high_risk]
+    defer_to_manual: [normal_low_score]
+  on_hard_budget_exceeded:
+    stop_new_advanced_calls: true
+    still_generate_partial_brief: true    # 仍生成可审计的部分简报
+
+  # 主流程不依赖 Batch API（PRD 15.6）
+  use_batch_in_main_flow: false
+
+# ------------------------------------------------------------
+# 13. 简报结构与文案约束（PRD 9.1 / 9.2）
+# ------------------------------------------------------------
+brief:
+  # v21（2026-10-22）新版日报结构。digest_v2 = 头部（日期 + 北京时间窗口）→
+  # 一、官方动态（按厂商分组，同厂商同事件合并，72h 跨期去重）→ 二、开源项目（72h 不重复）→
+  # 三、时政速览（3–5 句一段，不列来源）。旧分区、核心要点、审计区、评估附录、Telegram 要点均不再出现。
+  # 改回 legacy 即恢复旧版分区简报；下方 sections 仍用于渲染历史简报。
+  format: digest_v2
+  # 投递方式：rss_only = 只写入简报（RSS 发布），不发邮件；改为 email 恢复邮件投递。
+  delivery: rss_only
+  # 末尾附 Telegram 群组每日要点（四、Telegram 群组要点）。未就绪时最多等待这么久，之后不附并注明生成中。
+  telegram_daily: { enabled: true, wait_minutes: 5, max_age_hours: 3 }
+  # v23（2026-11-05）语义去重 + AI 分层判断（docs/semantic-dedup-design.md）：
+  # L1 结构化摘要 → 向量（后台「向量模型」配置）→ 只合并同一件事；判定走 L1/L2，无 L3、无人工。
+  # 有未判定条目时推迟发布：每 15 分钟重试，两小时后停止、本期不发布并在后台显示错误。
+  # 改为 false 即恢复 v22 行为（不调用摘要/向量、不读写新缓存表）。
+  semantic_dedup:
+    enabled: true
+    max_requests: 600       # 每期 AI 请求上限（含重试；定时运行多次尝试共用，手动重跑另计）
+    l2_max_items: 80        # 每次尝试送 L2 复判的条目上限
+    l2_max_gray: 60         # 每次尝试灰区「是否同一件事」确认上限
+    # 互斥动作：双方动作分属一对时不自动合并（交 L2 确认）
+    exclusive_actions:
+      - [发布, 下线]
+      - [上线, 下线]
+      - [推出, 停止]
+      - [故障, 恢复]
+      - [宕机, 恢复]
+      - [涨价, 降价]
+      - [提高, 降低]
+      - [上调, 下调]
+      - [批准, 否决]
+      - [开放, 关闭]
+      - [启动, 结束]
+      - [新增, 取消]
+  digest_sections:
+    - { id: official_updates, title: 一、官方动态 }
+    - { id: open_source_projects, title: 二、开源项目 }
+    # 以下三章并列、无子标题；当日无内容的章节整章不显示，编号按实际出现的章节自动顺延（此处序号为全部出现时的编号）
+    - { id: tech_tutorials, title: 三、技术干货 }
+    - { id: deals, title: 四、羊毛资讯 }
+    - { id: life_tips, title: 五、生活经验 }
+    - { id: politics_brief, title: 六、时政速览 }
+    - { id: telegram_groups, title: 七、Telegram 群组要点 }
+  dedup_window_hours: 72
+  show_core_highlights: false
+  # 未完成判定时禁止生成/发送，以免模型故障被伪装成“仅一条合格消息”。
+  completeness_gate:
+    max_unresolved: 0
+  target_read_minutes: 5
+  sections:                     # 固定顺序（PRD 9.1）
+    - id: core_highlights
+      title: 核心要点
+      count: [5, 8]
+      allow_fewer_if_insufficient: true    # 禁止用旧消息凑数
+    - id: ai_tech
+      title: AI 与科技趋势
+    - id: open_source_project
+      title: 开源项目
+    - id: developer_product
+      title: 开发者与产品实践
+    - id: quality_article
+      title: 优质文章
+    - id: society_life
+      title: 社会与生活速览
+    - id: audit
+      title: 来源状态与过滤审计
+
+  # 单条主题只允许这些字段（PRD 9.2）
+  item_fields_allowed:
+    - title
+    - conclusion            # 一句话结论
+    - summary_sentences     # 2–3 句摘要
+    - source_name
+    - source_url            # 绝对 HTTPS 链接
+  # 明令禁止输出的字段（PRD 9.2）—— 生成后校验，命中即判失败
+  item_fields_forbidden:
+    - 标签
+    - 信息性质标签
+    - 建议
+    - 关注建议
+    - 行动建议
+    - tags
+    - recommendation
+    - action_items
+  summary_sentence_count: [2, 3]
+  conclusion_max_chars: 60
+  # 风险/时效/未核实状态必须融入摘要正文，不得另起字段（PRD 9.2）
+  disclosures_inline: true
+
+  # 审计区分类（PRD 9.3）
+  audit_categories:
+    - id: included
+      title: 正常入选
+    - id: late_discovery
+      title: 补录（RSS 延迟）
+    - id: no_update
+      title: 无更新
+    - id: fetch_failed
+      title: 抓取失败
+    - id: source_anomaly
+      title: 来源异常
+    - id: filtered
+      title: 已过滤
+  # 强制保留候选未收录必须逐条列出（PRD 9.3）
+  audit_itemize_mandatory_misses: true
+  # 普通广告/重复/闲聊可按类别计数
+  audit_aggregate_categories: [DF-010, DF-011, DF-020, DF-030]
+
+  # 邮件（PRD 9.4 / 9.5 / 17.3）
+  email:
+    subject_template: "十六源简报｜{date}｜{window_label}"
+    window_labels:
+      morning: 早报
+      noon: 午报
+      evening: 晚报
+    max_width_px: 760
+    mobile_preview_px: 375
+    multipart_alternative: true
+    inline_css_only: true
+    forbid:
+      - javascript
+      - external_font
+      - remote_stylesheet
+      - tracking_pixel
+      - decorative_image
+      - iframe
+      - attachment
+    allowed_link_scheme: [https]

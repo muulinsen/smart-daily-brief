@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep public subscription inventory synchronized with GitHub
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Persistent=true
+Unit=brief-subscriptions-sync.service
+
+[Install]
+WantedBy=timers.target

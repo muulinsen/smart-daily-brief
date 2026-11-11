@@ -1,0 +1,32 @@
+[Unit]
+Description=十六源日报 维护（SQLite 在线备份 + 快照过期清理 + WAL checkpoint）
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+Environment=BACKUP_DIR=/var/lib/briefing/backups
+ExecStart=/usr/bin/node apps/worker/src/maintain.ts
+
+MemoryHigh=160M
+MemoryMax=256M
+TimeoutStartSec=600
+Nice=10
+IOSchedulingClass=idle
+
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+SystemCallFilter=@system-service
+ReadWritePaths=/var/lib/briefing
+
+[Install]
+WantedBy=multi-user.target

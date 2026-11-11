@@ -1,0 +1,37 @@
+[Unit]
+Description=十六源日报 执行后台操作请求（重新运行时段 / 重新发送日报）
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+ExecStart=/usr/bin/node apps/worker/src/requests.ts
+# 重新运行会走完整的 run.ts，资源限制与 brief-run.service 保持一致；不自动重试，失败由后台再次发起
+MemoryHigh=260M
+MemoryMax=340M
+TimeoutStartSec=1800
+Nice=5
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+# 沙箱化（PRD 19.2）
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+MemoryDenyWriteExecute=no
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+ReadWritePaths=/var/lib/briefing

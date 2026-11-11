@@ -1,0 +1,26 @@
+[project]
+name = "briefing-telegram-worker"
+version = "0.1.0"
+description = "Read-only Telegram collector for briefing-system"
+requires-python = ">=3.11,<3.15"
+dependencies = ["telethon>=1.42,<2"]
+
+[project.scripts]
+briefing-telegram = "briefing_telegram.worker:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/briefing_telegram"]
+
+[dependency-groups]
+dev = ["mypy>=1.15,<2", "pytest>=8.3,<10", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[[tool.mypy.overrides]]
+module = ["telethon", "telethon.*"]
+ignore_missing_imports = true

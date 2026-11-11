@@ -1,0 +1,11 @@
+[Unit]
+Description=十六源日报 后台操作请求监听（重新运行 / 重新发送）
+
+[Path]
+# 后台把请求写成 /var/lib/briefing/requests/*.json；目录非空即触发执行。
+# 目录须由 brief 用户持有（部署时 install -d -o brief -g brief -m 0700），不用 MakeDirectory=（会建成 root 所有）
+DirectoryNotEmpty=/var/lib/briefing/requests
+Unit=brief-requests.service
+
+[Install]
+WantedBy=paths.target

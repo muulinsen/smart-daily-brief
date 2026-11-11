@@ -1,0 +1,47 @@
+[Unit]
+Description=十六源日报 全文抓取（原帖正文，按 item_version 抓一次）
+Documentation=file:/opt/briefing-system/config/sources.yaml
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+ExecStart=/usr/bin/node apps/worker/src/fulltext.ts
+
+# 【不要加 Conflicts】曾用 Conflicts= 防止两个 Node 进程抢内存，
+# 但简报运行要跑几分钟（真实模型调用），必然撞上 20 分钟一轮的采集，
+# 结果每次开跑 8 秒就被 SIGTERM 杀掉。改为靠 MemoryHigh 限流约束：
+# MemoryHigh 触发内核回收而非杀进程，MemoryMax 才是硬墙。
+# 实测单轮峰值 RSS 128.6 MB、耗时 43.9s（16 源全量）。
+# MemoryHigh 触发限流给 GC 回收机会，MemoryMax 才是硬墙。
+MemoryHigh=140M
+MemoryMax=200M
+TimeoutStartSec=600
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+# 沙箱化（PRD 19.2）
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+MemoryDenyWriteExecute=no
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+ReadWritePaths=/var/lib/briefing
+
+[Install]
+WantedBy=multi-user.target

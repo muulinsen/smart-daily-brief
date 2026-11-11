@@ -1,0 +1,59 @@
+[Unit]
+Description=十六源日报 完整简报运行（候选→判定→复核→组装→投递）
+Documentation=file:/opt/briefing-system/config/rules.yaml
+# 首次运行 + 最多 3 次自动重试。3 小时覆盖 4 次最坏 30 分钟运行与
+# 三段 5 分钟间隔，同时会在下一个固定发报窗口前自动重置计数。
+StartLimitIntervalSec=12h
+StartLimitBurst=4
+# 子进程会再起 node，内存上限按整棵进程树估：
+# candidates/triage/review/brief 串行执行，同一时刻只有一个在跑，
+# 但 run.ts 本身常驻，故比单步略高。
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+ExecStart=/usr/bin/node apps/worker/src/run.ts --trigger timer
+Restart=on-failure
+RestartSec=5min
+# 退出码 3 = AI 判定连续失败超过两小时、本期已放弃发布：不再自动重启
+RestartPreventExitStatus=3
+
+# 【不要加 Conflicts】曾用 Conflicts= 防止两个 Node 进程抢内存，
+# 但简报运行要跑几分钟（真实模型调用），必然撞上 20 分钟一轮的采集，
+# 结果每次开跑 8 秒就被 SIGTERM 杀掉。改为靠 MemoryHigh 限流约束：
+# MemoryHigh 触发内核回收而非杀进程，MemoryMax 才是硬墙。
+# 实测单轮峰值 RSS 128.6 MB、耗时 43.9s（16 源全量）。
+# MemoryHigh 触发限流给 GC 回收机会，MemoryMax 才是硬墙。
+MemoryHigh=260M
+MemoryMax=340M
+# 新流程有未判定条目时进程内每 15 分钟重试，两小时截止（docs/semantic-dedup-design.md §5），单次运行最长约 2.5 小时
+TimeoutStartSec=10800
+Nice=5
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+# 沙箱化（PRD 19.2）
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=yes
+MemoryDenyWriteExecute=no
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+ReadWritePaths=/var/lib/briefing
+
+[Install]
+WantedBy=multi-user.target

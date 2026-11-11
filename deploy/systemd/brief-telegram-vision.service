@@ -1,0 +1,21 @@
+[Unit]
+Description=Briefing Telegram image vision queue
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=brief
+Group=brief
+WorkingDirectory=/opt/briefing-system
+EnvironmentFile=/etc/briefing/env
+Environment=TELEGRAM_MEDIA_DIR=/var/lib/briefing/telegram/media
+ExecStart=/usr/bin/node apps/worker/src/telegram-vision.ts
+MemoryHigh=120M
+MemoryMax=180M
+TimeoutStartSec=120
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/briefing

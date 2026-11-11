@@ -1,0 +1,17 @@
+[Unit]
+Description=每 20 分钟触发采集器
+Documentation=man:systemd.timer(5)
+
+[Timer]
+# 分档节奏在应用层判定（sources.yaml harvest_tiers）：
+# timer 每 20 分钟唤醒，采集器只处理本轮到期的来源。
+OnCalendar=*:0/20
+# 错开整点，避免与公共 RSSHub 实例上其他用户的整点请求撞车
+RandomizedDelaySec=90
+# 服务器离线恢复后补跑一次（快照缺口靠下一轮自然补上）
+Persistent=true
+AccuracySec=30s
+Unit=brief-harvest.service
+
+[Install]
+WantedBy=timers.target
